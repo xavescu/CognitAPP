@@ -1,35 +1,52 @@
 import React,{Component} from 'react';
-import {Alert} from 'react-native'
+import {StyleSheet, View, Image, Text, KeyboardAvoidingView, 
+    StatusBar, TextInput, TouchableOpacity, AsyncStorage} from 'react-native'
+import Bienvenidos from '../components/Bienvenido/Bienvenido';
 
 
+     navigationOptions = {
+        title: 'Login',
+        title: 'Bienvenidos',
+    };
 
+class functions extends Component{
 
+   
+    login = (props)=> {
+       
+        //var {navigate} = this.props.navigation;
 
-class functions{
+        var params = {
+            user: 'agnes123',
+            password: 'pass'
+        }
+        console.log("params", params);
+        var formData = new FormData();
+        for (var k in params) {
+            formData.append(k, params[k]);
+        }
 
-    login(){
-        Alert.alert('entramos')
-        // Comunicacion con BBDD 
-        /*
-         login = ()=> {
-        var {navigate} = this.props.navigation;
-
-        fetch('', {
+        console.log("formdata", formData)
+        
+        var request = {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'x-www-form-urlencoded',
+                'Content-Type': 'x-www-form-urlencoded'
             },
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
-            })  
-        })
+            body: formData
+        };
+        console.log("request", request)
+
+        fetch('http://cognitapp.duckdns.org/login', request)
         .then((response) => response.json())
         .then((res) => {
-            if (res.jwt !== ""){
-                AsyncStorage.setItem('jwt', res.jwt);
-                navigate ("Map", {});
+            console.log("respuesta", res);
+            if (res.id !== ""){
+                //AsyncStorage.setItem('jwt', res.jwt);
+                //navigate ("Bienvenido", {});
+                alert('Logeado correctamente')
+                
             }
             else {
                 alert('Error');
@@ -37,16 +54,95 @@ class functions{
         })
         .done();
     }
-        */
+
+    registro(){
+        var params = {
+            email:'hanks@campana.com',
+            nombre:'hanks campana',
+            user: 'agnes123',
+            password: 'pass'
+        }
+        console.log("params", params);
+        var formData = new FormData();
+        for (var k in params) {
+            formData.append(k, params[k]);
+        }
+
+        console.log("formdata", formData)
+        
+        var request = {
+            method: 'POST',
+            headers: {
+                'Accept': 'x-www-form-urlencoded',
+                'Content-Type': 'x-www-form-urlencoded'
+            },
+            body: formData
+        };
+        console.log("request", request)
+
+        fetch('http://cognitapp.duckdns.org/register', request)
+        .then((response) => response.json())
+        .then((res) => {
+            console.log("respuesta", res);
+            if (res!== ""){
+                //AsyncStorage.setItem('jwt', res.jwt);
+                //navigate ("Bienvenido", {});
+                alert('Registrado correctamente')
+                
+            }
+            else {
+                alert('Error');
+            }
+        })
+        .done();
     }
 
-    registro= ()=>{
-        //enviar a la  pagina de registro
-        //recoge datos del registro y los envia a la BBDD
-        Alert.alert('Registrado')
+    SetAsignatura(){
+        var params = {
+            nombre:'Estadistica',
+            email:'hanks@campana.com',
+        }
+        console.log("params", params);
+        var formData = new FormData();
+        for (var k in params) {
+            formData.append(k, params[k]);
+        }
+
+        console.log("formdata", formData)
+        
+        var request = {
+            method: 'POST',
+            headers: {
+                'Accept': 'x-www-form-urlencoded',
+                'Content-Type': 'x-www-form-urlencoded'
+            },
+            body: formData
+        };
+        console.log("request", request)
+
+        fetch('http://cognitapp.duckdns.org/storeSubject', request)
+        .then((response) => response.json())
+        .then((res) => {
+            console.log("respuesta", res);
+            if (res!== ""){
+                //AsyncStorage.setItem('jwt', res.jwt);
+                //navigate ("Bienvenido", {});
+                alert('Registrado correctamente')
+                
+            }
+            else {
+                alert('Error');
+            }
+        })
+        .done();
     }
 
 
-}
+       
+    }      
+
+
 
 export default new functions
+
+

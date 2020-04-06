@@ -26,7 +26,7 @@ class Speaking{
         selectedVoice: null,
         speechRate: 0.5,
         speechPitch: 1,
-        text: 'Buenos dias',
+        text: 'Buenos dias concha de tu madre',
 
       };
 
@@ -36,7 +36,7 @@ class Speaking{
             {
                 language :'es',
                 pitch:1,
-                rate:0.5,
+                rate:0.3,
             })
     }
 }

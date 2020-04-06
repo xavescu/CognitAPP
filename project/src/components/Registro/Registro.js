@@ -18,17 +18,17 @@ let password = this.password;
   constructor(props) {
     super(props);
     this.state = {
-        nombre:'',
-        apellido:'',
-        direccion:'',
         email:'',
+        nombre:'',
+        user:'',    
         password:'',
-        karma:''
+      
     };
   }
   registro=()=>{Functions.registro()}
+  SetAsignatura=()=>{Functions.SetAsignatura()}
 
-  render() {
+  render(props) {
     return (
         <View style = {styles.LoginGeneral}> 
         <ScrollView>
@@ -114,7 +114,14 @@ let password = this.password;
                         title='Registrar'
                         color="#084081" 
                         style = {styles.botonLogin} 
-                        onPress={()=>this.registro()}/>
+                        onPress={()=>this.registro(props)}/>
+                </View> 
+                <View style = {styles.botonRegistro}>
+                    <Button 
+                        title='Añadir Asignatura'
+                        color="#084081" 
+                        style = {styles.botonLogin} 
+                        onPress={()=>this.SetAsignatura(props)}/>
                 </View> 
         </ScrollView>
       </View>

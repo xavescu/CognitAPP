@@ -11,7 +11,7 @@ import Speaking from '../../functions/index';
 
 
 
-let Username = this.username;
+let User = this.user;
 let Password = this.password;
 
  class Login extends Component {
@@ -19,18 +19,17 @@ let Password = this.password;
   constructor(props){
         super(props);
         this.state = {
-            username : '',
+            user: '',
             password : '',
         }
     }
 
-   
-
     login =()=>{Functions.login()}
     registro=()=>{Functions.registro()}
     Speak=()=>{Speaking.OnSpeak()}
+
     
-  render() {
+  render(props) {
     return (
         
         <View style = {styles.LoginGeneral}>
@@ -46,11 +45,11 @@ let Password = this.password;
                       <TextInput 
                           placeholder="" 
                           placeholderTextColor="rgba(255,255,255,0.7)"
-                          maxLength={8} 
+                          maxLength={30} 
                           returnKeyType="next"
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
-                          onChangeText={(username)=>this.setState({username})} 
+                          onChangeText={(user)=>this.setState({user})} 
                           style = {styles.UserPass}
                       />     
                   </TouchableOpacity>
@@ -73,8 +72,9 @@ let Password = this.password;
                       title = "Login" 
                       color="#084081" 
                       style = {styles.botonLogin} 
-                      onPress={()=>this.login()} 
+                      onPress={()=>this.login(props)} 
                    />
+                   
                     <Button 
                       title = "Genera Audio" 
                       color="#084081" 
