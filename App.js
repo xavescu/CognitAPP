@@ -6,18 +6,23 @@ import {
   View,
   TextInput,
   Button,
-  Alert
+  Alert,
+  Picker
 } from 'react-native'
 
 class App extends Component {
   state = {
     count: 0,
     userId: 0,
+    subject: '',
     subjectId: 0,
     nombre: '',
     temaId: 0,
     newNombre: '',
-    newSubjectId: 0
+    newSubjectId: 0,
+    newSubject: '',
+    asignaturas_ids: [],
+    asignaturas: []
   }
 
   query = (endpoint, form) => {
@@ -51,21 +56,42 @@ class App extends Component {
 
   btnClick = () => {
     this.query('queryTemas', {'id': this.state.subjectId}).then(result => {
-      //Alert.alert("Query result", this.state.subjectId + '\n\n' + result)
+      this.setState({newSubjectId: this.state.subjectId})
       JSON.parse(result)['temas'].forEach((tema) => {
         if(tema['nombre']==this.state.nombre) {
           this.setState({temaId: tema['id'], newNombre: this.state.nombre, newSubjectId: this.state.subjectId})
         }
       })
     })
+
+    this.query('querySubjects', {'id': 1}).then(result => {
+      this.setState({asignaturas: []})
+      JSON.parse(result)['asignaturas'].forEach((asignatura) => {
+        //ids = this.state.asignaturas_ids
+        //ids.push({'key': asignatura['id']})
+        var names = this.state.asignaturas
+        names.push({'key': asignatura['nombre'], 'id': asignatura['id']})
+        //this.setState({asignaturas_ids: ids})
+        this.setState({asignaturas: names})
+      })
+    })
   }
 
   editTema = () => {
-    this.query('changeTema', {'id': this.state.subjectId, 'nombre': this.state.nombre, 'nuevonombre': this.state.newNombre, 'nuevaasignatura': this.state.newSubjectId}).then(res => {Alert.alert('result', res)})
+    this.query('changeTema', {'id': this.state.subjectId, 'nombre': this.state.nombre, 'nuevonombre': this.state.newNombre, 'nuevaasignatura': this.state.newSubjectId})
+    .then(res => {Alert.alert('result', res)})
+  }
+
+  deleteTema = () => {
+    this.query('deleteTema', {'id': this.state.subjectId, 'nombre': this.state.nombre}).then(res => {Alert.alert('result', res)})
   }
 
   querySubject = () => {
     this.query('queryTemas', {'id': this.state.subjectId}).then(result => {Alert.alert("Subject content", this.state.subjectId + '\n\n' + result)})
+  }
+
+  selectAsignatura = (value)=> {
+    this.setState({newSubjectId: value});
   }
 
   render() {
@@ -95,10 +121,10 @@ class App extends Component {
           <Text>
             TEMA
           </Text>
-          <Text>
+          {/*<Text>
             Tema ID
           </Text>
-          <Text>{this.state.temaId}</Text>
+          <Text>{this.state.temaId}</Text>*/}
           <Text>
             Nombre
           </Text>
@@ -111,17 +137,35 @@ class App extends Component {
           <Text>
             Asignatura
           </Text>
-          <TextInput
+          {/*<TextInput
             placeholder="Asignatura"
             returnKeyLabel={"next"}
             onChangeText={(text) => this.setState({newSubjectId:text})}
             value={this.state.newSubjectId.toString()}
-          ></TextInput>
-          <Button
-            onPress={() => this.editTema()}
-            title="guardar"
-            color="#20ff20"
-          />
+          ></TextInput>*/}
+          <View>
+            <Picker
+              style={{ height: 50, width: 200 }}
+              selectedValue={this.state.newSubjectId}
+              onValueChange={this.selectAsignatura}
+              >
+                {this.state.asignaturas.map(item =>(
+                  <Picker.Item label={item.key} value={item.id}/>
+                ))}
+            </Picker>
+          </View>
+          <View style={{flexDirection:"row"}}>
+            <Button
+              onPress={() => this.editTema()}
+              title="guardar"
+              color="#20ff20"
+            />
+            <Button
+              onPress={() => this.deleteTema()}
+              title="borrar"
+              color="#ff0000"
+            />
+          </View>
         </View>
       </View>
     )
