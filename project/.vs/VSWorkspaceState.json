@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\CommonFunctions",
+    "\\src\\Images",
+    "\\src\\screens",
+    "\\src\\screens\\muestraAsignaturas",
+    "\\src\\screens\\muestraResumenesTab",
+    "\\src\\screens\\muestraTemas",
+    "\\src\\screens\\Registro",
+    "\\src\\styles"
+  ],
+  "SelectedNode": "\\App.js",
+  "PreviewInSolutionExplorer": false
+}
