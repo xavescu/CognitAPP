@@ -6,7 +6,10 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    Modal,
+    TextInput,
+    Button
 } from 'react-native';
 
 import styles from '../../styles/styles';
@@ -17,7 +20,9 @@ export default class ListaAsignaturas extends PureComponent {
 
     state = {
         asignaturas: [],
-        loading: true
+        loading: true,
+        showAsignatura: false,
+        newAsignatura: 'Default',
     }
 
     async componentDidMount() {
@@ -36,6 +41,25 @@ export default class ListaAsignaturas extends PureComponent {
         }
     }
 
+    async createSubject(){
+        try {
+            const id = await getItem('idUsuario');
+            const res = await query('storeSubject', { "nombre":this.state.newAsignatura, "id": id });
+            if(res.status == true){
+                alert("Asignatura \""+ this.state.newAsignatura +"\" creada");
+                this.cancelar();
+            }  
+        } catch (err) {
+            console.log("Error creating Asignaturas data->", err);
+        }
+    }
+
+    cancelar=()=>{
+        this.setState({showAsignatura: false});
+      }
+    showVentana =()=>{
+        this.setState({showAsignatura: true});
+    }
     render() {
         const { asignaturas, loading } = this.state;
         const { navigation } = this.props;
@@ -45,21 +69,62 @@ export default class ListaAsignaturas extends PureComponent {
             navigation.navigate('Temas');
         }
 
+        const itemModificar = async (nombre) => {
+            await storeItem('nombreAsignatura', nombre);
+            navigation.navigate('ModificarAsignatura');
+        }
+
         if (!loading) {
             return (
                 <SafeAreaView style={styles.container}>
                     <FlatList
                         data={asignaturas}
                         renderItem={(data) =>
+                            <View>
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
-                                <View style={styles.listItemContainer}>
+                                <View style={styles.listItemContainer} >
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress ={() => {itemModificar(data.item.nombre)}}>
+                                <View style={styles.listItemContainer}>
                                     <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
                                 </View>
                             </TouchableOpacity>
+                            </View>
                         }
                         keyExtractor={(item) => item.id} />
+                        <View>
+                        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.showVentana()}>
+                            <View style={styles.listItemContainer}>
+                                <Text style={styles.ItemHeader}>Crear Asignatura</Text>
+                                <Image style={styles.pencil} source={require('../../Images/iconPlus.png')}/>
+                            </View>
+                        </TouchableOpacity>
+                        </View>
+
+                        <Modal visible={this.state.showAsignatura} 
+                        transparent = {true}>
+                            <View style = {styles.vModal2}>
+                                <View >
+                                    <TextInput
+                                    placeholder= 'Nombre Asignatura'
+                                    onChangeText={(newAsignatura)=>this.setState({newAsignatura})}
+                                    />
+                                <Button
+                                    title="Crear"
+                                    onPress = {()=>this.createSubject()}
+                                />
+                                <Button
+                                    title="Cancelar"
+                                    onPress = {()=>this.cancelar()}
+                                />
+                                </View>
+                            </View>
+                        </Modal>
+                    
                 </SafeAreaView>
+
             )
         } else {
             return <View style={[styles.container, styles.horizontal]}>

@@ -28,6 +28,7 @@ import ListaTemas from './src/screens/muestraTemas/ListaTemas';
 import ListaExamenes from './src/screens/muestraResumenesTab/ListaExamenes';
 import ListaResumenes from './src/screens/muestraResumenesTab/ListaResumenes';
 import Registro from './src/screens/Registro/Registro';
+import Modificar from './src/screens/modificarAsignatura/Modificar';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -47,6 +48,7 @@ const PantallaPrincipal = () => (
             <Stack.Screen name="Asignaturas" component={ListaAsignaturas} />
             <Stack.Screen name="Temas" component={ListaTemas} />
             <Stack.Screen name="Resumenes" component={TabResumenes} />
+            <Stack.Screen name="ModificarAsignatura" component={Modificar} />
         </Stack.Navigator>
 )
 
@@ -260,7 +262,7 @@ export default function App({ navigation }) {
                 } else {
                     if (res.status != true)
                         console.log("res----->", res.status)
-                    alert('Usuario o Contraseña Incorrecta')
+                    alert('Usuario o Contraseï¿½a Incorrecta')
                     { SignInScreen }
                 }
             } catch (err) {

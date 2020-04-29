@@ -12,7 +12,7 @@ export const query = (endpoint, form) => {
         method: 'POST',
         headers: {
             'Accept': 'x-www-form-urlencoded',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
         body: formBody
     })
