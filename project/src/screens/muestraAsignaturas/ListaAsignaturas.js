@@ -85,18 +85,14 @@ export default class ListaAsignaturas extends PureComponent {
                     <FlatList
                         data={asignaturas}
                         renderItem={(data) =>
-                            <View>
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer} >
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
+                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.nombre) }}>
+                                        <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress ={() => {itemModificar(data.item.nombre)}}>
-                                <View style={styles.listItemContainer}>
-                                    <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
-                                </View>
-                            </TouchableOpacity>
-                            </View>
                         }
                         keyExtractor={(item) => item.id} />
                         <View>

@@ -46,6 +46,11 @@ export default class ListaTemas extends PureComponent {
             navigation.navigate('Resumenes');
         }
 
+        const itemModificar = async (id) => {
+            await storeItem('idTemaModificar', id);
+            navigation.navigate('ModificarTema');
+        }
+
         if (!loading) {
             return (
                 <SafeAreaView style={styles.container}>
@@ -55,7 +60,9 @@ export default class ListaTemas extends PureComponent {
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id) }}>
+                                        <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
                         }

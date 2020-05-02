@@ -29,6 +29,7 @@ import ListaExamenes from './src/screens/muestraResumenesTab/ListaExamenes';
 import ListaResumenes from './src/screens/muestraResumenesTab/ListaResumenes';
 import Registro from './src/screens/Registro/Registro';
 import Modificar from './src/screens/modificarAsignatura/Modificar';
+import ModificarTema from './src/screens/modificarTema/ModificarTema';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -49,6 +50,7 @@ const PantallaPrincipal = () => (
             <Stack.Screen name="Temas" component={ListaTemas} />
             <Stack.Screen name="Resumenes" component={TabResumenes} />
             <Stack.Screen name="ModificarAsignatura" component={Modificar} />
+            <Stack.Screen name="ModificarTema" component={ModificarTema} />
         </Stack.Navigator>
 )
 
@@ -86,11 +88,6 @@ function SplashScreen() {
             >
                 <Text style={styles.fadingText}>CognitApp!</Text>
             </Animated.View>
-
-
-
-
-
         </View>
     );
 }
