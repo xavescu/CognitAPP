@@ -25,7 +25,11 @@ export default class ListaAsignaturas extends PureComponent {
         newAsignatura: 'Default',
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.llenarAsignatura();
+    }
+
+    async llenarAsignatura(){
         try {
             const id = await getItem('idUsuario');
             const res = await query('querySubjects', { "id": id });
@@ -47,6 +51,7 @@ export default class ListaAsignaturas extends PureComponent {
             const res = await query('storeSubject', { "nombre":this.state.newAsignatura, "id": id });
             if(res.status == true){
                 alert("Asignatura \""+ this.state.newAsignatura +"\" creada");
+                this.llenarAsignatura();
                 this.cancelar();
             }  
         } catch (err) {

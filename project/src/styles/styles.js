@@ -152,7 +152,14 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         padding: 5,
         marginVertical: 10
-    }
+    },
+    vModal2: { 
+        backgroundColor: "#ffffff",
+        margin: 50,
+        padding:40,
+        borderRadius:10,
+        //flex:1,
+    },
 })
 
 export default styles;
