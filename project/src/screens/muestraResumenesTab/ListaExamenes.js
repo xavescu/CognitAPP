@@ -40,8 +40,12 @@ export default class ListaExamenes extends PureComponent {
         const { navigation } = this.props;
 
         const itemPressed = async (id) => {
-            await storeItem('idExamenActual', id);
-            //navigation.navigate('COMING SOON');
+        }
+
+        const itemModificar = async (id, nombre) => {
+            await storeItem('idResumenModificar', id);
+            await storeItem('nombreResumen', nombre);
+            navigation.navigate('ModificarResumen');
         }
 
         if (!loading) {
@@ -53,7 +57,9 @@ export default class ListaExamenes extends PureComponent {
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
+                                        <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
                         }

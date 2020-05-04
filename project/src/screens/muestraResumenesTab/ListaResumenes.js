@@ -27,7 +27,7 @@ export default class ListaResumenes extends PureComponent {
             var aux = [];
             if (res.resumenes != "") {
                 for (let i = 0; i < res.resumenes.length; i++) {
-                    aux.push({ id: res.resumenes[i].id_documento, nombre: res.resumenes[i].nombre });
+                    aux.push({ id: res.resumenes[i].id, nombre: res.resumenes[i].nombre });
                 }
             }
             this.setState({ resumenes: aux, loading: false });
@@ -69,8 +69,12 @@ export default class ListaResumenes extends PureComponent {
         const { navigation } = this.props;
 
         const itemPressed = async (id) => {
-            await storeItem('idResumenActual', id);
-            //navigation.navigate('GO WHATEVER');
+        }
+
+        const itemModificar = async (id, nombre) => {
+            await storeItem('idResumenModificar', id);
+            await storeItem('nombreResumen', nombre);
+            navigation.navigate('ModificarResumen');
         }
 
         if (!loading) {
@@ -82,7 +86,9 @@ export default class ListaResumenes extends PureComponent {
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
+                                        <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+                                    </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
                         }
