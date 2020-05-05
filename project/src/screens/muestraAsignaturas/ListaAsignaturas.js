@@ -61,10 +61,11 @@ export default class ListaAsignaturas extends PureComponent {
 
     cancelar=()=>{
         this.setState({showAsignatura: false});
-      }
+    }
     showVentana =()=>{
         this.setState({showAsignatura: true});
     }
+
     render() {
         const { asignaturas, loading } = this.state;
         const { navigation } = this.props;

@@ -6,6 +6,9 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
+    Modal,
+    TextInput,
+    Button,
     ActivityIndicator
 } from 'react-native';
 
@@ -17,13 +20,19 @@ export default class ListaTemas extends PureComponent {
 
     state = {
         temas: [],
-        loading: true
+        loading: true,
+        showTema: false,
+        newTema: 'Default'
     }
 
     async componentDidMount() {
+        this.llenarTema();
+    }
+
+    async llenarTema() {
         try {
             const id = await getItem('idAsignaturaActual');
-            const res = await query('queryTemas', { "id":id });
+            const res = await query('queryTemas', { "id": id });
             var aux = [];
             if (res.temas != "") {
                 for (let i = 0; i < res.temas.length; i++) {
@@ -33,7 +42,27 @@ export default class ListaTemas extends PureComponent {
             this.setState({ temas: aux, loading: false });
         } catch (err) {
             console.log("Error getting Temas data->", err);
-            this.componentDidMount();
+        }
+    }
+
+    cancelar = () => {
+        this.setState({ showTema: false });
+    }
+    showVentana = () => {
+        this.setState({ showTema: true });
+    }
+
+    async createTema() {
+        try {
+            const id = await getItem('idAsignaturaActual');
+            const res = await query('storeTema', { "nombre": this.state.newTema, "id": id });
+            if (res.status == true) {
+                alert("Tema \"" + this.state.newTema + "\" creat");
+                this.llenarTema();
+                this.cancelar();
+            }
+        } catch (err) {
+            console.log("Error creating Tema data->", err);
         }
     }
 
@@ -67,6 +96,33 @@ export default class ListaTemas extends PureComponent {
                             </TouchableOpacity>
                         }
                         keyExtractor={(item) => item.id} />
+                                <View>
+                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => this.showVentana()}>
+                                        <View style={styles.listItemContainer}>
+                                            <Text style={styles.ItemHeader}>Crear Tema</Text>
+                                            <Image style={styles.pencil} source={require('../../Images/iconPlus.png')} />
+                                        </View>
+                                    </TouchableOpacity>
+                    </View>
+                    <Modal visible={this.state.showTema}
+                        transparent={true}>
+                        <View style={styles.vModal2}>
+                            <View >
+                                <TextInput
+                                    placeholder='Nombre Tema'
+                                    onChangeText={(newTema) => this.setState({ newTema })}
+                                />
+                                <Button
+                                    title="Crear"
+                                    onPress={() => this.createTema()}
+                                />
+                                <Button
+                                    title="Cancelar"
+                                    onPress={() => this.cancelar()}
+                                />
+                            </View>
+                        </View>
+                    </Modal>
                 </SafeAreaView>
             )
         } else {
