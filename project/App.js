@@ -33,6 +33,7 @@ import Modificar from './src/screens/modificarAsignatura/Modificar';
 import ModificarTema from './src/screens/modificarTema/ModificarTema';
 import ModificarResumen from './src/screens/modificarResumen/ModificarResumen';
 import IniciarCamera from './src/screens/ocr/IniciarCamera';
+import MuestraEditaNuevoResumen from './src/screens/muestraEditaResumen/MurestraEditaNuevoResumen';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -56,6 +57,7 @@ const PantallaPrincipal = () => (
             <Stack.Screen name="ModificarTema" component={ModificarTema} />
             <Stack.Screen name="ModificarResumen" component={ModificarResumen} />
             <Stack.Screen name="IniciarCamera" component={IniciarCamera} />
+            <Stack.Screen name ="MuestraEditaNuevoResumen" component={MuestraEditaNuevoResumen} />
         </Stack.Navigator>
 )
 

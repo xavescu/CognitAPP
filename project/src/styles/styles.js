@@ -160,6 +160,62 @@ const styles = StyleSheet.create({
         borderRadius:10,
         //flex:1,
     },
+    MainContainerMostrarResumen:
+    {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0,
+        paddingHorizontal: 10
+    },
+
+    ButtonEdit: {
+        width: '100%',
+        height: 45,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 55,
+        borderRadius: 25,
+    },
+
+    ButtonChange: {
+        width: '100%',
+        height: 45,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 5,
+        borderRadius: 25,
+    },
+
+     textStyle:{
+         color: '#fff',
+         fontSize:20
+     },
+
+     ButtonChangeDisabled:{
+         width: '100%',
+         height: 45,
+         backgroundColor: 'grey',
+         justifyContent: 'center',
+         alignItems: 'center',
+         position: 'absolute',
+         bottom: 5,
+         borderRadius: 25,
+     },
+
+     ButtonEditDisabled:{
+         width: '100%',
+         height: 45,
+         backgroundColor: 'grey',
+         justifyContent: 'center',
+         alignItems: 'center',
+         position: 'absolute',
+         bottom: 55,
+         borderRadius: 25,
+     }
 })
 
 export default styles;
