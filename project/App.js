@@ -20,6 +20,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { query } from './src/CommonFunctions/fetchQuery';
 import { storeItem } from './src/CommonFunctions/ManageItems';
 
+
 import styles from './src/styles/styles';
 
 //importamos paginas
