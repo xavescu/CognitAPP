@@ -12,6 +12,7 @@ import {
 import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
+import OCRButton from '../ocr/OCRButton';
 
 export default class ListaResumenes extends PureComponent {
 
@@ -92,7 +93,9 @@ export default class ListaResumenes extends PureComponent {
                                 </View>
                             </TouchableOpacity>
                         }
-                        keyExtractor={(item) => item.id} />
+                        keyExtractor={(item) => item.id} 
+                    />
+                    <OCRButton navigation={this.props.navigation}/>
                 </SafeAreaView>
             )
         } else {

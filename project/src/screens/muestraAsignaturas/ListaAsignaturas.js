@@ -15,6 +15,7 @@ import {
 import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
+import OCRButton from '../ocr/OCRButton';
 
 export default class ListaAsignaturas extends PureComponent {
 
@@ -103,6 +104,7 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Image style={styles.pencil} source={require('../../Images/iconPlus.png')}/>
                             </View>
                         </TouchableOpacity>
+                        <OCRButton navigation={this.props.navigation}/>
                         </View>
 
                         <Modal visible={this.state.showAsignatura} 
