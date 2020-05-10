@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import styles from '../../styles/styles';
 import ImagePicker from 'react-native-image-picker';
+import { storeItem, getItem } from '../../CommonFunctions/ManageItems'; 
 
 export default class OCRButton extends Component{
     state = {
@@ -58,9 +59,11 @@ export default class OCRButton extends Component{
     async uploadFile() {
         const { base64 } = this.state;
         console.log('Uploading file')
-        const cosa = await query('ocr64', base64);
-        console.log('Result --> ' + cosa);
-        this.props.navigation.navigate('MuestraEditaNuevoResumen', {resultText: cosa});
+        const textoScan = await query('ocr64', base64);
+        console.log('Result --> ' + textoScan);
+        await storeItem('textFoto', textoScan);
+        this.props.navigation.navigate('MuestraEditaNuevoResumen');
+
     }
 
 }

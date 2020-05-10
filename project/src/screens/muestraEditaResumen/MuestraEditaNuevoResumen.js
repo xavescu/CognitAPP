@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 import styles from '../../styles/styles';
+import { storeItem, getItem } from '../../CommonFunctions/ManageItems'; 
+
+
 
 class MuestraEditaNuevoResumen extends Component {
+
     constructor(props){
         super(props);
         this.state = {
-            text: this.props.resultText,
-            nombre_documento: '',
+            text: '',
             tipo:'0',
             editable: false,
+           
         };
         this.toggleEditable = this.toggleEditable.bind(this);
     }
 
+    
     componentDidMount() {
       this.consultaResumen();
     }
@@ -37,28 +42,28 @@ class MuestraEditaNuevoResumen extends Component {
         });
     }
 
-    consultaResumen = () => {
-        this.setState({text: 'Text_Sample', nombre_documento:'<Select a Name>'})
+    consultaResumen  = async() => {
+        const aux = await getItem('textFoto');
+        this.setState({text:aux});
+        await AsyncStorage.removeItem('textFoto');
+        
     }
 
     editaResumen = () => {
         // Funcion responsable de enviar el nuevo String a la screen de Hansk&Sergio y navegar a esta misma screen
 
     }
+    
 
     render(){
+
+      
+      
         return (
             <View style={styles.MainContainerMostrarResumen}>
+                
                 <TextInput
-                    placeholder=""
-                    value = {this.state.nombre_documento}
-                    style={{fontWeight: 'bold'}}
-                    editable={this.state.editable}
-                    onChangeText={this.handleChangeName}
-                />
-
-                <TextInput
-                    placeholder=""
+                    placeholder='Texto Recibido'
                     value = {this.state.text}
                     multiline={true}
                     editable={this.state.editable}
