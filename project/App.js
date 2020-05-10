@@ -34,6 +34,8 @@ import ModificarTema from './src/screens/modificarTema/ModificarTema';
 import ModificarResumen from './src/screens/modificarResumen/ModificarResumen';
 import IniciarCamera from './src/screens/ocr/IniciarCamera';
 import MuestraEditaNuevoResumen from './src/screens/muestraEditaResumen/MuestraEditaNuevoResumen';
+import GuardaTextoScan from './src/screens/GuardaTextoScan/GuardaTextoScan';
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -58,6 +60,7 @@ const PantallaPrincipal = () => (
             <Stack.Screen name="ModificarResumen" component={ModificarResumen} />
             <Stack.Screen name="IniciarCamera" component={IniciarCamera} />
             <Stack.Screen name ="MuestraEditaNuevoResumen" component={MuestraEditaNuevoResumen} />
+            <Stack.Screen name ="GuardaTextoScan" component={GuardaTextoScan}/>
         </Stack.Navigator>
 )
 

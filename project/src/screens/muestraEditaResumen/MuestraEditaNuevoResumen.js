@@ -6,6 +6,7 @@ import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 
 
 
+
 class MuestraEditaNuevoResumen extends Component {
 
     constructor(props){
@@ -45,19 +46,19 @@ class MuestraEditaNuevoResumen extends Component {
     consultaResumen  = async() => {
         const aux = await getItem('textFoto');
         this.setState({text:aux});
-        await AsyncStorage.removeItem('textFoto');
-        
     }
 
-    editaResumen = () => {
-        // Funcion responsable de enviar el nuevo String a la screen de Hansk&Sergio y navegar a esta misma screen
-
+    GuardaResumen = async() => {
+        
+        await storeItem('textFoto',this.state.text)
+        console.log("guarda--->",this.state.text)
+        this.props.navigation.navigate('GuardaTextoScan');
+        //cambia la pantalla
     }
     
 
     render(){
 
-      
       
         return (
             <View style={styles.MainContainerMostrarResumen}>
@@ -79,7 +80,7 @@ class MuestraEditaNuevoResumen extends Component {
 
                 <TouchableOpacity disabled={!this.state.editable}
                     style={!this.state.editable ? styles.ButtonChangeDisabled : styles.ButtonChange}
-                    onPress={this.editaResumen}
+                    onPress={this.GuardaResumen}
                 >
                     <Text style={styles.textStyle}> Guardar cambios </Text>
                 </TouchableOpacity>
