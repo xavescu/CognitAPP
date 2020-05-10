@@ -33,7 +33,7 @@ import Modificar from './src/screens/modificarAsignatura/Modificar';
 import ModificarTema from './src/screens/modificarTema/ModificarTema';
 import ModificarResumen from './src/screens/modificarResumen/ModificarResumen';
 import IniciarCamera from './src/screens/ocr/IniciarCamera';
-import MuestraEditaNuevoResumen from './src/screens/muestraEditaResumen/MurestraEditaNuevoResumen';
+import MuestraEditaNuevoResumen from './src/screens/muestraEditaResumen/MuestraEditaNuevoResumen';
 
 
 const Tab = createMaterialTopTabNavigator();

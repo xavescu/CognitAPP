@@ -22,30 +22,30 @@ export default class IniciarCamera extends React.Component {
     );
     }
 
-  _pickImage = async () => {
-    try {
-        await ImagePicker.launchCamera({
-            title: 'Select Avatar',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        }, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else {
-                this.setState({
-                    base64: response.data,
-                    image: response.uri
-                });
-            }
-        });
-    } catch (E) {
-      console.log(E);
-    }
-  };
+    _pickImage = async () => {
+        try {
+            await ImagePicker.launchCamera({
+                title: 'Select Avatar',
+                storageOptions: {
+                    skipBackup: true,
+                    path: 'images',
+                },
+            }, (response) => {
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                } else {
+                    this.setState({
+                        base64: response.data,
+                        image: response.uri
+                    });
+                }
+            });
+        } catch (E) {
+        console.log(E);
+        }
+    };
 
     async uploadFile() {
     const { base64 } = this.state;
@@ -55,6 +55,7 @@ export default class IniciarCamera extends React.Component {
 
 
 }
+
 const query = async (endpoint, form) => {
     var formdata = new FormData();
     formdata.append("img", form);
@@ -69,4 +70,4 @@ const query = async (endpoint, form) => {
         .then(response => response.text())
         .then(result => result)
         .catch(error => error);
-    }
+}
