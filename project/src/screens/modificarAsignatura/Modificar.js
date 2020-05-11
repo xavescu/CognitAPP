@@ -102,40 +102,6 @@ export default class Modificar extends Component {
     }
   }
 
-  /*DeleteAsignatura = async () => { 
-    var form = {
-      id: await getItem('idUsuario'),
-      nombre: await getItem('nombreAsignatura')
-    }
-    console.log("form",form);
-    var formBody = [];
-    for (var property in form) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(form[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-    return fetch('http://cognitapp.duckdns.org/deleteSubject', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'        
-      },
-      body: formBody
-    })
-    .then((response) => response.json())
-    .then((res) => {
-      console.log("res--->",res)
-      if (res.status==true){
-          alert("Eliminado Correctamente");
-         
-      }
-        else {
-            alert('Error');
-        }
-    }) 
-  }*/
- 
-
 
   render() {
     return (
