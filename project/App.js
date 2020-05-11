@@ -36,7 +36,6 @@ import MuestraEditaNuevoResumen from './src/screens/muestraEditaResumen/MuestraE
 import GuardaTextoScan from './src/screens/GuardaTextoScan/GuardaTextoScan';
 
 
-
 const Tab = createMaterialTopTabNavigator();
 const AuthContext = React.createContext();
 const Stack = createStackNavigator();
@@ -57,7 +56,6 @@ const PantallaPrincipal = () => (
             <Stack.Screen name="ModificarAsignatura" component={Modificar} />
             <Stack.Screen name="ModificarTema" component={ModificarTema} />
             <Stack.Screen name="ModificarResumen" component={ModificarResumen} />
-            <Stack.Screen name="IniciarCamera" component={IniciarCamera} />
             <Stack.Screen name ="MuestraEditaNuevoResumen" component={MuestraEditaNuevoResumen} />
             <Stack.Screen name ="GuardaTextoScan" component={GuardaTextoScan}/>
         </Stack.Navigator>

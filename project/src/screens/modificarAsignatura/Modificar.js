@@ -30,7 +30,7 @@ export default class Modificar extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount= async () =>{
     try {
         const nombreAsignatura = await getItem('nombreAsignatura');
         this.setState({NombreAsignatura: nombreAsignatura});
@@ -40,7 +40,7 @@ export default class Modificar extends Component {
     }
   }
 
-  async VerificaNombre(){
+  VerificaNombre = async () =>{
     try {
       const id = await getItem('idUsuario');
       const res = await query('querySubjects', { "id": id });
@@ -69,11 +69,12 @@ export default class Modificar extends Component {
     }
   }
 
-  async ModificarAsignatura(){
+  ModificarAsignatura = async () =>{
     try {
       const nombreAsignatura = await getItem('nombreAsignatura');
-      const id = await getItem('idUsuario');
-      const res = await query('changeSubject', { "id": id, "nombre": nombreAsignatura, "nuevonombre": this.state.NuevoNombre });
+      const id = await getItem('idAsignaturaActual');
+      const res = await query('changeSubject', { 'id': id, 'nombre': this.state.NuevoNombre, 'nuevonombre':  nombreAsignatura});
+      console.log(nombreAsignatura + "- "+id+"-"+this.state.NuevoNombre);
       if (res.status == true){
         alert("Nombre Cambiado Correctamente");
       }
@@ -85,13 +86,13 @@ export default class Modificar extends Component {
     }
   }
 
-  async DeleteAsignatura(){
+  DeleteAsignatura= async () =>{
     try {
       const nombreAsignatura = await getItem('nombreAsignatura');
-      const id = await getItem('idUsuario');
+      const id = await getItem('idAsignaturaActual');
       const res = await query('deleteSubject', { "id": id, "nombre": nombreAsignatura });
       if (res.status==true){
-        alert("Eliminado Correctamente");
+        alert("Eliminado Correctamenteeee");
       }
       else {
           alert('Error al eliminar');
@@ -101,10 +102,10 @@ export default class Modificar extends Component {
     }
   }
 
-  /*DeleteAsignatura = ()=> { 
+  /*DeleteAsignatura = async () => { 
     var form = {
-      id: this.state.IdUsuario,
-      nombre: this.state.NombreAsignatura
+      id: await getItem('idUsuario'),
+      nombre: await getItem('nombreAsignatura')
     }
     console.log("form",form);
     var formBody = [];

@@ -76,8 +76,9 @@ export default class ListaAsignaturas extends PureComponent {
             navigation.navigate('Temas');
         }
 
-        const itemModificar = async (nombre) => {
+        const itemModificar = async (nombre, id) => {
             await storeItem('nombreAsignatura', nombre);
+            await storeItem('idAsignaturaActual', id);
             navigation.navigate('ModificarAsignatura');
         }
 
@@ -90,7 +91,7 @@ export default class ListaAsignaturas extends PureComponent {
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer} >
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.nombre) }}>
+                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.nombre, data.item.id) }}>
                                         <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
                                     </TouchableOpacity>
                                 </View>
@@ -106,7 +107,13 @@ export default class ListaAsignaturas extends PureComponent {
                         </TouchableOpacity>
                         <OCRButton navigation={this.props.navigation}/>
                         </View>
-
+                        <View>
+                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarAsignatura()}>
+                                <View style={styles.listItemContainer}>
+                                    <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                         <Modal visible={this.state.showAsignatura} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
