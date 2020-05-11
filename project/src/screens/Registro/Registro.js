@@ -53,6 +53,11 @@ let password = this.password;
              this.registro();
              navigation.navigate('SignIn');
          }
+
+         const volverInicio = () => {
+            navigation.navigate('SignIn');
+        }
+         
     return (
         <View style = {styles.LoginGeneral}> 
         <ScrollView>
@@ -124,6 +129,12 @@ let password = this.password;
                         color="#084081" 
                         style={styles.botonLogin}
                         onPress={() => itemPressed()} />
+                    <Text style={styles.TextFooter}> Ya tengo cuenta </Text>
+                    <Button 
+                        title='Login'
+                        color='#FF0033'
+                        style = {styles.botonRegistro}
+                        onPress={()=> volverInicio()}/>
                 </View> 
                
         </ScrollView>
