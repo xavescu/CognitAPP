@@ -32,9 +32,9 @@ import Registro from './src/screens/Registro/Registro';
 import Modificar from './src/screens/modificarAsignatura/Modificar';
 import ModificarTema from './src/screens/modificarTema/ModificarTema';
 import ModificarResumen from './src/screens/modificarResumen/ModificarResumen';
-import MuestraEditaNuevoResumen from './src/screens/muestraEditaResumen/MuestraEditaNuevoResumen';
+import MuestraEditaNuevoResumen from './src/screens/muestraEditaNuevoResumen/MuestraEditaNuevoResumen';
 import GuardaTextoScan from './src/screens/GuardaTextoScan/GuardaTextoScan';
-
+import MuestraEditaResumen from './src/screens/muestraEditaResumen/muestraEditaResumen';
 
 const Tab = createMaterialTopTabNavigator();
 const AuthContext = React.createContext();
@@ -58,6 +58,7 @@ const PantallaPrincipal = () => (
             <Stack.Screen name="ModificarResumen" component={ModificarResumen} />
             <Stack.Screen name ="MuestraEditaNuevoResumen" component={MuestraEditaNuevoResumen} />
             <Stack.Screen name ="GuardaTextoScan" component={GuardaTextoScan}/>
+            <Stack.Screen name ="MuestraEditaResumen" component={MuestraEditaResumen} />
         </Stack.Navigator>
 )
 

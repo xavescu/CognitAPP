@@ -326,7 +326,7 @@ export default class GuardaTextoScan extends Component {
           buttonSize={10}
         />
         <TextInput
-            placeholder= 'Nombre Asignatura'
+            placeholder= 'Titulo del texto'
             onChangeText={(Nombreresumen)=>this.setState({Nombreresumen})} 
             style={{borderWidth:0.5}}/>
         

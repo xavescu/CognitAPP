@@ -13,6 +13,7 @@ import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
+import MuestraEditaResumen from '../muestraEditaResumen/muestraEditaResumen';
 
 export default class ListaExamenes extends PureComponent {
     state = {
@@ -40,7 +41,12 @@ export default class ListaExamenes extends PureComponent {
         const { examenes, loading } = this.state;
         const { navigation } = this.props;
 
-        const itemPressed = async (id) => {
+        const itemPressed = async (id_res, nombre) => {
+            let id_tema = await getItem('idTemaActual');
+            await storeItem('id_resumen', id_res);
+            await storeItem('nombre_documento', nombre);
+            await storeItem('id_tema', id_tema);
+            navigation.navigate('MuestraEditaResumen');
         }
 
         const itemModificar = async (id, nombre) => {
@@ -55,7 +61,7 @@ export default class ListaExamenes extends PureComponent {
                     <FlatList
                         data={examenes}
                         renderItem={(data) =>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
+                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
                                     <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
