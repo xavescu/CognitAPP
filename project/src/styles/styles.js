@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     vModal2: { 
         backgroundColor: "#ffffff",
         margin: 50,
+		marginTop: 200,
         padding:40,
         borderRadius:10,
         //flex:1,

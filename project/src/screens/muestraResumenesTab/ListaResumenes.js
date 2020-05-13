@@ -6,7 +6,9 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+	Modal,
+    Button,
 } from 'react-native';
 
 import styles from '../../styles/styles';
@@ -19,11 +21,24 @@ export default class ListaResumenes extends PureComponent {
 
     state = {
         resumenes: [],
-        loading: true
+        loading: true,
+		first_run: false,
+        mostrarAyudaCargar: true,
+        mostrarAyudaScan: false,
+        mostrarAyudaCrear: false,
+        mostrarAyudaNuevo: false,
+        fondoBoton1: true,
+        fondoBoton2: false,
+        fondoBoton3: false,
+        fondoBoton4: false,
     }
 
     async componentDidMount() {
-        try {
+        this.llenarResumen();
+    }
+	
+	async llenarResumen(){
+		try {
             const id = await getItem('idTemaActual');
             const res = await query('queryResumenes', { "id": id });
             var aux = [];
@@ -36,8 +51,8 @@ export default class ListaResumenes extends PureComponent {
         } catch (err) {
             console.log("Error getting Resumenes data->", err);
         }
-    }
-
+	}
+	
     GetResumenes = (form) => {
         var formBody = [];
         for (var property in form) {
@@ -86,23 +101,79 @@ export default class ListaResumenes extends PureComponent {
 
         if (!loading) {
             return (
-                <SafeAreaView style={styles.container}>
-                    <FlatList
-                        data={resumenes}
-                        renderItem={(data) =>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
-                                <View style={styles.listItemContainer}>
-                                    <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
-                                        <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
-                                    </TouchableOpacity>
-                                </View>
-                            </TouchableOpacity>
-                        }
-                        keyExtractor={(item) => item.id} 
-                    />
-                    <OCRButton navigation={this.props.navigation}/>
-                </SafeAreaView>
+				<SafeAreaView style={styles.container}>
+					{ first_run == true ? (
+					<SafeAreaView style={styles.container}>
+						<FlatList
+							data={resumenes}
+							renderItem={(data) =>
+								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
+									<View style={styles.listItemContainer}>
+										<Text style={styles.ItemHeader}>{data.item.nombre}</Text>
+										<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
+											<Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+										</TouchableOpacity>
+									</View>
+								</TouchableOpacity>
+							}
+							keyExtractor={(item) => item.id} 
+						/>
+						<OCRButton navigation={this.props.navigation}/>
+                        <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()}>
+                            <View style={styles.listItemContainer}>
+                                <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <Modal visible={this.state.mostrarAyudaCargar} 
+                        transparent = {true}>
+                            <View style = {styles.vModal2}>
+                                <Text>Con este boton podras reacargar la pantalla</Text>
+                                <Text></Text>
+                                <Button 
+                                    title="Ok"
+                                    onPress = {()=>this.showSegundaPantalla()}
+                                />
+                            </View>
+                        </Modal>
+                        <Modal visible={this.state.mostrarAyudaScan} 
+                        transparent = {true}>
+                            <View style = {styles.vModal2}>
+                                <Text>Ahora crea tu primer resumen!</Text>
+                                <Text></Text>
+                                <Button 
+                                    title="Ok"
+                                    onPress = {()=>this.showTerceraPantalla()}
+                                />
+                            </View>
+                        </Modal>
+                    </SafeAreaView>
+					)
+					:
+					(
+					<SafeAreaView style={styles.container}>
+						<FlatList
+							data={resumenes}
+							renderItem={(data) =>
+								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
+									<View style={styles.listItemContainer}>
+										<Text style={styles.ItemHeader}>{data.item.nombre}</Text>
+										<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
+											<Image style={styles.pencil} source={require('../../Images/pencil.png')} />
+										</TouchableOpacity>
+									</View>
+								</TouchableOpacity>
+							}
+							keyExtractor={(item) => item.id} 
+						/>
+						<OCRButton navigation={this.props.navigation}/>
+						<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarResumen()}>
+							<View style={styles.listItemContainer}>
+								<Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+							</View>
+						</TouchableOpacity>
+					</SafeAreaView>
+					)}
+				</SafeAreaView>
             )
         } else {
             return <View style={[styles.container, styles.horizontal]}>

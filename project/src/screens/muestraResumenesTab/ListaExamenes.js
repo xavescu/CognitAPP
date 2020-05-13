@@ -22,7 +22,11 @@ export default class ListaExamenes extends PureComponent {
     }
 
     async componentDidMount() {
-        try {
+        this.llenarExamen();
+    }
+	
+	async llenarExamen(){
+		try {
             const id = await getItem('idTemaActual');
             const res = await query('queryExamenes', { "id": id });
             var aux = [];
@@ -35,8 +39,8 @@ export default class ListaExamenes extends PureComponent {
         } catch (err) {
             console.log("Error getting Examens data->", err);
         }
-    }
-
+	}
+	
     render() {
         const { examenes, loading } = this.state;
         const { navigation } = this.props;
@@ -72,6 +76,11 @@ export default class ListaExamenes extends PureComponent {
                         }
                         keyExtractor={(item) => item.id} />
                         <OCRButton navigation={this.props.navigation}/>
+						<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarExamen()}>
+                            <View style={styles.listItemContainer}>
+                                <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                            </View>
+                        </TouchableOpacity>
                 </SafeAreaView>
             )
         } else {
