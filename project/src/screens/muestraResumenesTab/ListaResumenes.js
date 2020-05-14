@@ -83,6 +83,7 @@ export default class ListaResumenes extends PureComponent {
 
     render() {
         const { resumenes, loading } = this.state;
+        const { first_run } = this.state;
         const { navigation } = this.props;
 
          const itemPressed = async (id_res, nombre) => {
