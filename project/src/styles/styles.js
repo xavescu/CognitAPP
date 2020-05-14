@@ -216,6 +216,14 @@ const styles = StyleSheet.create({
          position: 'absolute',
          bottom: 55,
          borderRadius: 25,
+     },
+     
+     background_grey: {
+        backgroundColor: "grey",
+     },
+
+     background_green: {
+        backgroundColor: "green",
      }
 })
 

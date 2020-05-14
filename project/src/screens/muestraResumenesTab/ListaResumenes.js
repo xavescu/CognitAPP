@@ -22,8 +22,8 @@ export default class ListaResumenes extends PureComponent {
     state = {
         resumenes: [],
         loading: true,
-		first_run: false,
-        mostrarAyudaCargar: true,
+		first_run: true,
+        mostrarAyudaCargar: false,
         mostrarAyudaScan: false,
         mostrarAyudaCrear: false,
         mostrarAyudaNuevo: false,
@@ -52,7 +52,23 @@ export default class ListaResumenes extends PureComponent {
             console.log("Error getting Resumenes data->", err);
         }
 	}
-	
+    
+    showAlert = () =>{
+        alert("Crea tu primer documento para continuar!");
+    }
+
+    showSegundaPantalla =()=>{
+        this.setState({mostrarAyudaCargar: false});
+        this.setState({mostrarAyudaScan: true});
+        this.setState({fondoBoton1: false});
+    }
+
+    showTerceraPantalla =()=>{
+        this.setState({mostrarAyudaCargar: false});
+        this.setState({mostrarAyudaScan: false});
+        this.setState({fondoBoton1: false});
+    }
+
     GetResumenes = (form) => {
         var formBody = [];
         for (var property in form) {
@@ -84,7 +100,7 @@ export default class ListaResumenes extends PureComponent {
     render() {
         const { resumenes, loading } = this.state;
         const { first_run } = this.state;
-        const { navigation } = this.props;
+        const { fondoBoton1 } = this.state;
 
          const itemPressed = async (id_res, nombre) => {
             let id_tema = await getItem('idTemaActual');
