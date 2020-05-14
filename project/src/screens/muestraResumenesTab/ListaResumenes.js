@@ -22,7 +22,7 @@ export default class ListaResumenes extends PureComponent {
     state = {
         resumenes: [],
         loading: true,
-		first_run: true,
+		first_run: false,
         mostrarAyudaCargar: false,
         mostrarAyudaScan: false,
         mostrarAyudaCrear: false,
