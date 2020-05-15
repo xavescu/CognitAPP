@@ -99,6 +99,7 @@ export default class ListaResumenes extends PureComponent {
 
     render() {
         const { resumenes, loading } = this.state;
+        const { navigation } = this.props;
         const { first_run } = this.state;
         const { fondoBoton1 } = this.state;
 
