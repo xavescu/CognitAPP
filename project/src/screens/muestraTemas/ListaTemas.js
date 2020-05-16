@@ -36,6 +36,12 @@ export default class ListaTemas extends PureComponent {
     }
 
     async componentDidMount() {
+        const tutorial = await getItem('tutorial');
+        if (tutorial == 0){
+            this.setState({first_run: true});
+        }else{
+            this.setState({first_run: false});
+        }
         this.llenarTema();
     }
 
@@ -116,6 +122,9 @@ export default class ListaTemas extends PureComponent {
                 alert("Tema \"" + this.state.newTema + "\" creat");
                 this.llenarTema();
                 this.cancelar();
+                if(this.state.first_run == true){
+                    this.showCuartaPantalla();
+                } 
             }
         } catch (err) {
             console.log("Error creating Tema data->", err);
@@ -220,7 +229,7 @@ export default class ListaTemas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
-                                    onPress = {()=>this.showCuartaPantalla()}
+                                    onPress = {()=>this.showQuintaPantalla()}
                                 />
                             </View>
                         </Modal>

@@ -45,7 +45,9 @@ let password = this.password;
          } catch (err) {
              console.log("Error realizando registro ->", err);
          }
-}
+    }
+    //pasamos a la sigiente ventana
+    
      render() {
          const { navigation } = this.props;
 
@@ -59,85 +61,95 @@ let password = this.password;
         }
          
     return (
-        <View style = {styles.LoginGeneral}> 
-        <ScrollView>
-            <View >
-                <Text style={styles.TextHeader}>CogniAppRegistro!!</Text>
-            </View> 
-            <View style = {styles.BodyHeader}>    
-                <TouchableOpacity>
-                      <Text>Nombre :</Text>
-                      <TextInput 
-                      placeholder="" 
-                      placeholderTextColor="rgba(255,255,255,0.7)"
-                      maxLength={10} 
-                      returnKeyType="next"
-                      autoCapitalize="none" 
-                      underlineColorAndroid ='transparent'
-                      onChangeText={(nombre) => this.setState({nombre})}
-                      style = {styles.UserPass}
-                      />
+        <View style={styles.container}>
+       
+          <View style={[styles.box, styles.box1]}>
+            <Text style={styles.HeaderLoginText}>Cognit
+            <Text style={{color:'red',fontSize:60}}>!</Text>
+             app</Text>
+          </View>
+
+          <View style={[styles.box, styles.box2]}>   
+            <View style={styles.separador}/> 
+                <TouchableOpacity style = {styles.Nombre} >
+                <Text style = {styles.Texto2}>Nombre :</Text>
+                <TextInput 
+                    placeholder="" 
+                    placeholderTextColor="#474646"
+                    maxLength={20} 
+                    returnKeyType="next"
+                    autoCapitalize="none" 
+                    onChangeText={(nombre) => this.setState({nombre})}
+                    style = {styles.InputText2}
+                    />
+                
                 </TouchableOpacity>
 
-                <TouchableOpacity>
-                      <Text>user :</Text>
-                      <TextInput 
-                      placeholder="" 
-                      placeholderTextColor="rgba(255,255,255,0.7)"
-                      maxLength={10} 
-                      returnKeyType="next"
-                      autoCapitalize="none" 
-                      underlineColorAndroid ='transparent'
-                      onChangeText={(user) => this.setState({user})}
-                      style = {styles.UserPass}
-                      />
+                <TouchableOpacity style = {styles.Nombre}>
+                <Text style = {styles.Texto2}>user :</Text>
+                <TextInput 
+                placeholder="" 
+                placeholderTextColor="#474646"
+                maxLength={20} 
+                returnKeyType="next"
+                autoCapitalize="none" 
+                underlineColorAndroid ='transparent'
+                onChangeText={(user) => this.setState({user})}
+                style = {styles.InputText2}
+                />
                 </TouchableOpacity>
 
-                <TouchableOpacity>
-                        <Text>Email :</Text>
-                        <TextInput 
-                        placeholder="" 
-                        placeholderTextColor="rgba(255,255,255,0.7)"
-                        maxLength={30} 
-                        returnKeyType="next"
-                        autoCapitalize="none" 
-                        underlineColorAndroid ='transparent'
-                        onChangeText={(email) => this.setState({email})}
-                        style = {styles.UserPass}
-                        />
-                </TouchableOpacity>
-                    
-                <TouchableOpacity >
-                      <Text>Password :</Text>
-                      <TextInput 
-                      placeholder="" 
-                      placeholderTextColor="rgba(255,255,255,0.7)"
-                      maxLength={10} 
-                      returnKeyType="next"
-                      autoCapitalize="none" 
-                      underlineColorAndroid ='transparent'
-                      secureTextEntry={true}
-                      onChangeText={(password) => this.setState({password})}
-                      style = {styles.UserPass}
-                      />
-                </TouchableOpacity>
+            <TouchableOpacity style = {styles.Nombre}>
+              <Text style = {styles.Texto2}>Email :</Text>
+              <TextInput 
+              placeholder="" 
+              placeholderTextColor="#474646"
+              maxLength={20} 
+              returnKeyType="next"
+              autoCapitalize="none" 
+              underlineColorAndroid ='transparent'
+              onChangeText={(email) => this.setState({email})}
+              style = {styles.InputText2}
+              />
+            </TouchableOpacity>
 
-            </View> 
-                <View style = {styles.botonRegistro}>
-                    <Button 
-                        title='Registrar'
-                        color="#084081" 
-                        style={styles.botonLogin}
-                        onPress={() => itemPressed()} />
-                    <Text style={styles.TextFooter}> Ya tengo cuenta </Text>
-                    <Button 
-                        title='Login'
-                        color='#FF0033'
-                        style = {styles.botonRegistro}
-                        onPress={()=> volverInicio()}/>
-                </View> 
-               
-        </ScrollView>
+            <TouchableOpacity  style = {styles.Nombre}>
+                <Text style = {styles.Texto2}>Password :</Text>
+                <TextInput 
+                placeholder="" 
+                placeholderTextColor="#474646"
+                maxLength={20} 
+                returnKeyType="next"
+                autoCapitalize="none" 
+                underlineColorAndroid ='transparent'
+                secureTextEntry={true}
+                onChangeText={(password) => this.setState({password})}
+                style = {styles.InputText2}
+                />
+            </TouchableOpacity>
+
+
+            <Text style={{ fontSize: 20, textAlign: 'center', marginTop: 10 }}>
+                  
+        </Text> 
+
+          </View> 
+          
+          <View style={[styles.box, styles.box3]}>
+              <Button 
+              title='Registrar'
+              color='#FF0033'
+              style = {styles.botonRegistro}
+              onPress={() => { itemPressed() }}/>
+              
+              <Text style={styles.TextFooter}> Ya tengo cuenta </Text>
+              
+              <Button 
+              title='Login'
+              color='#FF0033'
+              style = {styles.botonRegistro}
+              onPress={() => { volverInicio() }}/>
+          </View> 
       </View>
     );
   }

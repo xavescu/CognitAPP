@@ -94,7 +94,9 @@ function SplashScreen() {
                     }
                 ]}
             >
-                <Text style={styles.fadingText}>CognitApp!</Text>
+                <Text style={styles.fadingText}>Cognit
+                    <Text style={{color:'red',fontSize:80}}>!</Text>
+                app</Text>
             </Animated.View>
         </View>
     );
@@ -111,85 +113,79 @@ function SignInScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={[styles.box, styles.box1]}>
-                <Text style={styles.texto} >  CognitApp </Text>
+            <Text style={styles.HeaderLoginText}>Cognit
+                <Text style={{color:'red',fontSize:60}}>!</Text>
+                app</Text>
             </View>
+            
 
             <View style={[styles.box, styles.box2]}>
-                <View style={{
-                    color: '#2E86C1',
-                    fontSize: 40,
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                    padding: 50,
-                }} />
-
-                <View style={{
-                    color: '#2E86C1',
-                    fontSize: 40,
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                    padding: 50,
-                }}>
+        
+            <View style={styles.separador}/>
+                    <View style={{ 
+                        color:'#2E86C1',
+                        padding:50,
+                        backgroundColor:'white' 
+                        } }> 
 
                     <TouchableOpacity >
-                        <Text style={{
-                            textAlign: 'center',
-                            justifyContent: 'center',
-                            fontSize: 30,
-                            color: '#FF6700'
-                        }}
-                        >   Nombre: </Text>
-                        <TextInput
-                            placeholder=""
-                            placeholderTextColor="rgba(255,255,255,0.7)"
-                            maxLength={30}
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            underlineColorAndroid='transparent'
-                            onChangeText={setUsername}
-                            style={styles.UserPass}
-                        />
+                        <Text style = {styles.NombreLogin} >  
+                        Nombre : 
+                        </Text>
+
+                        <TextInput 
+                        placeholder="  " 
+                        placeholderTextColor="#474646"
+                        maxLength={30} 
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        onChangeText={setUsername} 
+                        style = {styles.InputText}
+                        />     
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{}}>
-                        <Text style={{
-                            textAlign: 'center',
-                            justifyContent: 'center',
-                            fontSize: 30,
-                        }}
-                        >   Password: </Text>
-                        <TextInput
-                            placeholder=""
-                            placeholderTextColor="rgba(255,255,255,0.7)"
-                            maxLength={10}
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            underlineColorAndroid='transparent'
-                            secureTextEntry={true}
-                            onChangeText={setPassword}
-                            style={styles.UserPass}
+                    <TouchableOpacity style = {{}}>
+                        <Text style = {styles.PasswordLogin}>   
+                        Password : 
+                        </Text>
+
+                        <TextInput 
+                    
+                        placeholder="" 
+                        placeholderTextColor="#474646"
+                        maxLength={10} 
+                        returnKeyType="next"
+                        autoCapitalize="none" 
+                        secureTextEntry={true}
+                        onChangeText={setPassword}
+                        style = {styles.InputText}
                         />
                     </TouchableOpacity>
+                </View> 
 
-                    <Button
-                        title="Login"
-                        color="#084081"
-                        style={styles.botonLogin}
-                        onPress={() => signIn({ username, password })}
+                <View>
+                    <Button 
+                    title = "Login" 
+                    color='#FF0033'
+                    style = {styles.botonLogin}
+                    onPress={() => signIn({ username, password })}
                     />
-                    <Button
-                        title="Registrate"
-                        color="#084081"
-                        style={styles.botonLogin}
+                </View>
+
+
+            <View style={[styles.box, styles.box3]}>
+                <Text style={styles.TextFooter}> ¿Aún no tienes cuenta?</Text>
+                <Button 
+                        title = "Registrate" 
+                        color='#FF0033'
                         onPress={() => navigation.navigate('Registro')}
-                    />
-                </View>
-                <View style={[styles.box, styles.box3]}>
-                    <Text>footer</Text>
-                </View>
-            </View>
+                        />
+            
+            </View>      
         </View>
+    
+    </View>
     );
 }
 
@@ -261,6 +257,8 @@ export default function App({ navigation }) {
                 const res = await query('login', params);
                 if (res.status === true) {
                     await storeItem('idUsuario', res.id);
+                    await storeItem('tutorial', res.tutorial);
+                    console.log(res.tutorial);
                     dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
                     console.log("Logeado OK" + res.id)
 

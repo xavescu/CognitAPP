@@ -62,8 +62,28 @@ export default class OCRButton extends Component{
         const textoScan = await query('ocr64', base64);
         console.log('Result --> ' + textoScan);
         await storeItem('textFoto', textoScan);
+        const tutorial = await getItem('tutorial');
+        console.log("tutorial final 1");
+        if(tutorial == 0){
+            console.log("tutorial final 2");
+            this.disableTutorial();
+        } 
         this.props.navigation.navigate('MuestraEditaNuevoResumen');
 
+    }
+
+    async disableTutorial(){
+        try{
+            console.log("tutorial final 3");
+            const id = await getItem('idUsuario');
+            const res = await query('disableTutoriala', { "id": id });
+            console.log("tutorial final 4 --> ", res.status);
+            if(res.status == true){
+                alert("Tutorial Completado");
+            }
+        }catch(err){
+            console.log("Error getting Disable tutorial->", err);
+        }
     }
 
 }

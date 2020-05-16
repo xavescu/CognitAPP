@@ -36,7 +36,13 @@ export default class ListaAsignaturas extends PureComponent {
         fondoBoton4: false,
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const tutorial = await getItem('tutorial');
+        if (tutorial == 0){
+            this.setState({first_run: true});
+        }else{
+            this.setState({first_run: false});
+        }
         this.llenarAsignatura();
     }
 
@@ -64,6 +70,9 @@ export default class ListaAsignaturas extends PureComponent {
                 alert("Asignatura \""+ this.state.newAsignatura +"\" creada");
                 this.llenarAsignatura();
                 this.cancelar();
+                if(this.state.first_run == true){
+                    this.showCuartaPantalla();
+                } 
             }  
         } catch (err) {
             console.log("Error creating Asignaturas data->", err);
@@ -117,6 +126,7 @@ export default class ListaAsignaturas extends PureComponent {
         this.setState({fondoBoton3: false});
         this.setState({fondoBoton4: true});
     }
+
     showAlert = () =>{
         alert("Crea una asignatura nueva para continuar!");
     }
@@ -220,7 +230,7 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
-                                    onPress = {()=>this.showCuartaPantalla()}
+                                    onPress = {()=>this.showQuintaPantalla()}
                                 />
                             </View>
                         </Modal>

@@ -24,7 +24,7 @@ export default class ListaResumenes extends PureComponent {
         resumenes: [],
         loading: true,
 		first_run: false,
-        mostrarAyudaCargar: false,
+        mostrarAyudaCargar: true,
         mostrarAyudaScan: false,
         mostrarAyudaCrear: false,
         mostrarAyudaNuevo: false,
@@ -35,6 +35,12 @@ export default class ListaResumenes extends PureComponent {
     }
 
     async componentDidMount() {
+        const tutorial = await getItem('tutorial');
+        if (tutorial == 0){
+            this.setState({first_run: true});
+        }else{
+            this.setState({first_run: false});
+        }
         this.llenarResumen();
     }
 	
@@ -53,7 +59,7 @@ export default class ListaResumenes extends PureComponent {
             console.log("Error getting Resumenes data->", err);
         }
 	}
-    
+
     showAlert = () =>{
         alert("Crea tu primer documento para continuar!");
     }

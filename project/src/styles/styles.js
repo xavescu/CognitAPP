@@ -28,23 +28,114 @@ const styles = StyleSheet.create({
     },
     //header
     box1: {
-        flex: 1.5,
-        backgroundColor: '#2196F3',
+        flex: 1,
+        backgroundColor: 'white',
+        padding:50
+    },
+    HeaderLoginText: {
+        fontSize: 40,
+        textAlign: "center",
+        color:'black'
+    },
+    NombreLogin:{
+        fontFamily:'Helvetica-Bold',
+        fontWeight:'bold',
+        textAlign:'left',
+        justifyContent:'center',
+        fontSize:15,
+        color:'#474646',
+        paddingTop:50,
+      },
+      PasswordLogin:{
+        fontFamily:'Helvetica-Bold',
+        fontWeight:'bold',
+        textAlign:'left',
+        justifyContent:'center',
+        fontSize:15,
+        color:'#474646',
+        padding:10
+      },
+      InputText:{
+        width:300,
+        height:50,
+        //color:'white',
+        marginVertical:20,
+        letterSpacing:0.5,
+        textAlign: 'center',
+        // Set border width.
+        borderWidth: 2,
+        // Set border Hex Color Code Here.
+        borderColor: '#FF0033',
+        // Set border Radius.
+        borderRadius: 20 ,
+        //Set background color of Text Input.
+        //backgroundColor : "#FF0033"
+        backgroundColor : "#fff"
+      },
+      InputText2:{
+        width:300,
+        height:50,
+        justifyContent:'center',
+        //color:'white',
+        letterSpacing:0.5,
+        textAlign: 'center',
+        // Set border width.
+        borderWidth: 2,
+        // Set border Hex Color Code Here.
+        borderColor: '#FF0033',
+        // Set border Radius.
+        borderRadius: 20 ,
+        //Set background color of Text Input.
+        //backgroundColor : "#FF0033"
+        backgroundColor : "#fff"
+      },
+      botonLogin:{
+        width:300,
+        height:50,
+        backgroundColor:'#FF0033',
+        borderRadius:2,
+        borderWidth: 2,
+        paddingBottom:30
+    },
+    //separador
+    separador:{
+        padding:0.5, 
+        backgroundColor:'white',
+        paddingTop:5
     },
     //content
     box2: {
         flex: 10,
-        backgroundColor: '#8BC34A'
+        backgroundColor: 'white'
     },
-    //footer
-    box3: {
-        flex: .5,
-        backgroundColor: '#e3aa1a'
+     //footer
+     box3: {
+        flex: 3,
+        backgroundColor: 'white'
+    },
+    TextFooter:{
+        fontFamily:'Helvetica-Bold',
+        fontWeight:'bold',
+        textAlign:'center' ,
+        fontSize:20,
+        paddingTop:10,
+    },
+    botonRegistro:{
+        fontFamily:'Helvetica-Bold',
+        fontWeight:'bold',
+        fontSize:50,
+        width:2700,
+        height:500,
+        backgroundColor:'#FF0033',
+        borderRadius:2,
+        borderWidth: 2,
+        paddingBottom:30
     },
     containerprincipal: {
         flex: 1,
 
-    }, Cabecera: {
+    }, 
+    Cabecera: {
         color: 'white',
         fontSize: 40,
         textAlign: 'center',
@@ -72,6 +163,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: 'black',
     },
+    Texto2:{
+        fontFamily:'Helvetica-Bold',
+        fontWeight:'bold',
+        textAlign:'left',
+        justifyContent:'center',
+        fontSize:15,
+        padding:0,
+        color:'#474646'
+    },
     UserPass: {
         width: 230,
         height: 50,
@@ -87,21 +187,18 @@ const styles = StyleSheet.create({
 
     },
     fadingContainer: {
-        paddingVertical: 20,
-        paddingHorizontal: 30,
-        backgroundColor: "black"
+        backgroundColor: "white"
     },
     fadingText: {
-        fontSize: 40,
+        fontSize: 60,
         textAlign: "center",
-        //margin: 10
-        color: 'white'
+        color:'black'
     },
     containerSplash: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "black",
+        backgroundColor:"white"
 
     },
     buttonRow: {
@@ -141,10 +238,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         borderBottomColor: 'black'
     },
-    botonRegistro: {
-        marginTop: 10
-    },
-
     UserPass: {
         width: 130,
         height: 30,
@@ -224,7 +317,12 @@ const styles = StyleSheet.create({
 
      background_green: {
         backgroundColor: "green",
-     }
+     },
+     Nombre:{
+        color:'#474646',
+        padding:10,
+        paddingLeft:60
+    }
 })
 
 export default styles;
