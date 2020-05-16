@@ -100,6 +100,7 @@ class MuestraEditaResumen extends Component {
         }
     }
 
+
     render(){
         return (
             <View style={styles.MainContainerMostrarResumen}>

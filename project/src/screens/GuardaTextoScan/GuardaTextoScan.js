@@ -262,39 +262,56 @@ export default class GuardaTextoScan extends Component {
   guardar= async ()=>{
     const aux = await getItem('textFoto');
     console.log("Aux Texto----->", aux );
-	var form = {  
-		id: this.state.pickerTema,
-		nombre: this.state.Nombreresumen,
-        texto: aux,
-        tipo: this.state.selectTipos,
-	}
-    var formBody = [];
-    for (var property in form) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(form[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
+    var form = {  
+      id: this.state.pickerTema,
+      nombre: this.state.Nombreresumen,
+          texto: aux,
+          tipo: this.state.selectTipos,
     }
-    formBody = formBody.join("&");
-    return fetch('http://cognitapp.duckdns.org/storeResumen', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: formBody
-    })
-    .then((response) => response.json())
-    .then((res) => {
-        if (res.status==true){
-        console.log("ARCHIVO CORRECTAMENTE");
-        this.props.navigation.navigate('Asignaturas');
-        }
-        else {
-          console.log("pesponse -->>>>" , res)
-            alert('Error');
-        }
-    })
+      var formBody = [];
+      for (var property in form) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(form[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+      return fetch('http://cognitapp.duckdns.org/storeResumen', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: formBody
+      })
+      .then((response) => response.json())
+      .then((res) => {
+          if (res.status==true){
+            console.log("ARCHIVO CORRECTAMENTE");
+            this.cambioPantalla();
+          }
+          else {
+            console.log("pesponse -->>>>" , res)
+              alert('Error');
+          }
+      })
 
   }
+  cambioPantalla = async () => {
+    const { navigation } = this.props;
+    const id = await getItem('idPantalla');
+    console.log("pagina id: ", id);
+    switch(id){
+        case '1':
+            navigation.navigate('Asignaturas');
+            break;
+        case '2':
+            navigation.navigate('Temas');
+            break;
+        case '3':
+        case '4':
+            navigation.navigate('Resumenes');
+            break;
+    }
+}
   render(){
 
     return(

@@ -71,12 +71,14 @@ export default class Modificar extends Component {
 
   ModificarAsignatura = async () =>{
     try {
+      const { navigation } = this.props;
       const nombreAsignatura = await getItem('nombreAsignatura');
       const id = await getItem('idAsignaturaActual');
       const res = await query('changeSubject', { 'id': id, 'nombre': this.state.NuevoNombre, 'nuevonombre':  nombreAsignatura});
       console.log(nombreAsignatura + "- "+id+"-"+this.state.NuevoNombre);
       if (res.status == true){
         alert("Nombre Cambiado Correctamente");
+        navigation.navigate('Asignaturas');
       }
       else {
           alert('Error');
@@ -88,11 +90,13 @@ export default class Modificar extends Component {
 
   DeleteAsignatura= async () =>{
     try {
+      const { navigation } = this.props;
       const nombreAsignatura = await getItem('nombreAsignatura');
       const id = await getItem('idAsignaturaActual');
       const res = await query('deleteSubject', { "id": id, "nombre": nombreAsignatura });
       if (res.status==true){
         alert("Eliminado Correctamenteeee");
+        navigation.navigate('Asignaturas');
       }
       else {
           alert('Error al eliminar');

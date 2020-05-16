@@ -55,12 +55,14 @@ class ModificarResumen extends Component {
     }
   
     async editResumen() {
+      const { navigation } = this.props;
       const res = await query('changeResumen', {'id': this.state.resumenId, 'nombre': this.state.newNombreResumen, 'tipo': this.state.newTypeId, 'tema': this.state.newTemaId});
       //alert(this.state.resumenId + "-" + this.state.newNombreResumen + "-" + this.state.newTypeId + "-" + this.state.newTemaId);
       console.log(res);
       //alert(res.status);
       if (res.status == true) {
           alert("Modificacio del resum", "El resum ha estat modificat amb exit.");
+          navigation.navigate('Resumenes');
       }
       else {
           alert('Error');
@@ -68,14 +70,15 @@ class ModificarResumen extends Component {
     }
   
     async deleteResumen () {
+      const { navigation } = this.props;
       const res = await query('deleteResumen', {'id': this.state.resumenId});
       if (res.status == true) {
           alert("Resum esborrat", "El resum ha estat esborrat amb exit.");
+          navigation.navigate('Resumenes');
       }
       else {
           alert('Error');
       }
-      navigation.navigate('Resumenes');
     }
 
     selectTema = (value)=> {

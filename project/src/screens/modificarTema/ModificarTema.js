@@ -63,24 +63,29 @@ class ModificarTema extends Component {
     }*/
 
     editTema = async () => {
+        const { navigation } = this.props;
         const res = await query('changeTema', { 'id': this.state.temaId, 'nombre': this.state.newNombre, 'asignatura': this.state.newSubjectId });
         if (res.status == true) {
             Alert.alert("Canvi de tema", "El tema ha estat canviat amb exit.");
+            navigation.navigate('Temas');
         }
         else {
             alert('Error');
         }
+        
   }
 
-    deleteTema = async (navigation) => {
+    deleteTema = async () => {
+        const { navigation } = this.props;
         const res = await query('deleteTema', { 'id': this.state.temaId });
         if (res.status == true) {
             Alert.alert("Tema esborrat", "El tema ha estat esborrat amb exit.");
+            navigation.navigate('Temas');
         }
         else {
             alert('Error');
         }
-        navigation.navigate('Temas');
+        
   }
 
   /*querySubject = () => {

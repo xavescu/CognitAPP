@@ -23,6 +23,7 @@ export default class ListaExamenes extends PureComponent {
     }
 
     async componentDidMount() {
+        await storeItem('idPantalla', '4');
         this.llenarExamen();
     }
 	

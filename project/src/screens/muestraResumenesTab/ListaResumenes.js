@@ -35,8 +35,9 @@ export default class ListaResumenes extends PureComponent {
     }
 
     async componentDidMount() {
+        await storeItem('idPantalla', '3');
         const tutorial = await getItem('tutorial');
-        if (tutorial == 0){
+        if (tutorial == 1){
             this.setState({first_run: true});
         }else{
             this.setState({first_run: false});
