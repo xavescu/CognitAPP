@@ -11,6 +11,7 @@ import {
 
 import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
+import Texttomp3 from '../../CommonFunctions/mp3/texttomp3';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
 import MuestraEditaResumen from '../muestraEditaResumen/muestraEditaResumen';
@@ -71,6 +72,7 @@ export default class ListaExamenes extends PureComponent {
                                     <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
                                         <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
                                     </TouchableOpacity>
+                                    <Texttomp3 txt={data.item.nombre} txt2={data.item.id}></Texttomp3> 
                                 </View>
                             </TouchableOpacity>
                         }
