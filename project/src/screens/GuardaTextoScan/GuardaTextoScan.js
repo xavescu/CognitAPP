@@ -28,7 +28,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { storeItem, getItem } from '../../CommonFunctions/ManageItems'; 
+import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
+import { query } from '../../CommonFunctions/fetchQuery';
 
 //anabana id 4
 
@@ -295,10 +296,16 @@ export default class GuardaTextoScan extends Component {
       })
 
   }
+
   cambioPantalla = async () => {
     const { navigation } = this.props;
     const id = await getItem('idPantalla');
+    const tutorial = await getItem('tutorial');
     console.log("pagina id: ", id);
+    console.log("tutorial2 -: ", tutorial);
+    if(tutorial == 1){
+      this.disableTutorial();
+    } 
     switch(id){
         case '1':
             navigation.navigate('Asignaturas');
@@ -311,7 +318,20 @@ export default class GuardaTextoScan extends Component {
             navigation.navigate('Resumenes');
             break;
     }
-}
+  }
+
+  async disableTutorial(){
+    try{
+        console.log("aki dedntro disable");
+        const id = await getItem('idUsuario');
+        const res = await query('disableTutorial', { "id": id });
+        if(res.status == true){
+            console.log("Tutorial Completado");
+        }
+    }catch(err){
+        console.log("Error getting Disable tutorial->", err);
+    }
+  }
   render(){
 
     return(
