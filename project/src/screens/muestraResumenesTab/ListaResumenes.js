@@ -18,6 +18,7 @@ import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
 import MuestraEditaResumen from '../muestraEditaResumen/muestraEditaResumen';
 import MuestraImagen from '../muestraImagen/MuestraImagen';
+import RNFetchBlob from 'react-native-fetch-blob'
 
 export default class ListaResumenes extends PureComponent {
 
@@ -78,6 +79,41 @@ export default class ListaResumenes extends PureComponent {
         this.setState({mostrarAyudaCargar: false});
         this.setState({mostrarAyudaScan: false});
         this.setState({fondoBoton1: false});
+    }
+
+    async getPDF(idResumen, nombreResumen){
+        ///var fullPath = '/storage/emulated/0/Android/data/com.loginapp/files/' + nombreResumen +'.pdf';
+        var fullPath = '/storage/emulated/0/Download/' + nombreResumen +'.pdf';
+        try {
+            var form = {
+                id: idResumen,
+              }
+              var formBody = [];
+              for (var property in form) {
+                var encodedKey = encodeURIComponent(property);
+                var encodedValue = encodeURIComponent(form[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+              }
+              formBody = formBody.join("&");
+            let value =   await RNFetchBlob
+            .config({
+              fileCache : true,
+              appendExt : 'pdf',
+              path : fullPath
+              })
+             .fetch('POST','http://cognitapp.duckdns.org/getPdf', {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8,ca;q=0.7',
+            },formBody)
+            .then((res) => {
+              console.log("resd", res);
+              console.log('The file saved to ',res.path());
+              alert("Archivo exportado a PDF correctamente en Descargas!");
+            })
+          }
+           catch (error) {
+            console.log('The file saved get an error ');
+          }
     }
 
     render() {
@@ -171,11 +207,12 @@ export default class ListaResumenes extends PureComponent {
 										<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
 											<Image style={styles.pencil} source={require('../../Images/pencil.png')} />
 										</TouchableOpacity>
-
+                                        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={()=>this.getPDF(data.item.id, data.item.nombre)}>
+											<Image style={styles.pencil} source={require('../../Images/pdf.png')} />
+										</TouchableOpacity>
 										{data.item.foto == '0' ? (
 										    <Texttomp3 txt={data.item.nombre} txt2={data.item.id}></Texttomp3>) : (<Text/>)
 										}
-
 									</View>
 								</TouchableOpacity>
 							}

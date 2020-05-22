@@ -310,7 +310,16 @@ const styles = StyleSheet.create({
          bottom: 55,
          borderRadius: 25,
      },
-     
+     ButtonShare: {
+        width: '100%',
+        height: 45,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 105,
+        borderRadius: 25,
+    },
      background_grey: {
         backgroundColor: "grey",
      },

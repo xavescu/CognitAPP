@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Alert, componentDidMount, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, Alert, componentDidMount, TouchableOpacity, Modal, Button } from 'react-native';
 
 import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
@@ -19,6 +19,8 @@ class MuestraEditaResumen extends Component {
             nombre_documento: '',
             tipo:'0',
             editable: false,
+            showCompartir: false,
+            userAmigo: 'Default',
         };
         this.toggleEditable = this.toggleEditable.bind(this);
     }
@@ -99,8 +101,34 @@ class MuestraEditaResumen extends Component {
          console.log("ERROR", error);
         }
     }
+    showVentana =()=>{
+        this.setState({showCompartir: true});
+    }
+    cancelar=()=>{
+        this.setState({showCompartir: false});
+    }
 
-
+    CompartirUsuario = async () =>{
+        try{
+            const id_res = await getItem("id_resumen");
+            console.log("Compartir: " + id_res + " - " + this.state.userAmigo);
+            var params = {
+                "id": id_res,
+                "user": this.state.userAmigo
+            }
+            const res = await query('share', params);
+            console.log("comprtir codigo : "+ res.code);
+            console.log("comprtir status : "+ res.status);
+             if (res.status == true) {
+                alert("Comparte este codigo: " + res.code);
+                this.cancelar();
+             }else {
+                alert("Error al compartir");
+             }
+        }catch(error){
+         console.log("ERROR", error);
+        }
+    }
     render(){
         return (
             <View style={styles.MainContainerMostrarResumen}>
@@ -119,6 +147,27 @@ class MuestraEditaResumen extends Component {
                     editable={this.state.editable}
                     onChangeText={this.handleChangeText}
                  />
+                
+                <Modal visible={this.state.showCompartir} 
+                transparent = {true}>
+                    <View style = {styles.vModal2}>
+                        <Text>Se va ha compartir a: </Text>
+                        <View >
+                            <TextInput
+                            placeholder= 'Username amigo'
+                            onChangeText={(userAmigo)=>this.setState({userAmigo})}
+                            />
+                        <Button
+                            title="Compartir"
+                            onPress = {()=>this.CompartirUsuario()}
+                        />
+                        <Button
+                            title="Cancelar"
+                            onPress = {()=>this.cancelar()}
+                        />
+                        </View>
+                    </View>
+                </Modal>
 
                 <TouchableOpacity disabled={this.state.editable}
                     style={!this.state.editable ? styles.ButtonEdit : styles.ButtonEditDisabled}
@@ -132,6 +181,10 @@ class MuestraEditaResumen extends Component {
                     onPress={this.editaResumen}
                 >
                     <Text style={styles.textStyle}> Guardar cambios </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.ButtonShare} onPress = {()=>this.showVentana()}>
+                    <Text style={styles.textStyle}> Compartir </Text>
                 </TouchableOpacity>
             </View>
         );
