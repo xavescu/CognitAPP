@@ -39,6 +39,7 @@ import MuestraImagen from './src/screens/muestraImagen/MuestraImagen';
 import CreaFita from './src/screens/CreaFita/CreaFita';
 import ListaFites from './src/screens/ListaFitas/ListaFitas';
 import CodigoArchivo from './src/screens/codigoArchivo/codigoArchivo';
+import EditaUsuari from './src/screens/EditaUser/EditaUser';
 
 const Tab = createMaterialTopTabNavigator();
 const AuthContext = React.createContext();
@@ -318,6 +319,7 @@ export default function App({ navigation }) {
                                     <Draw.Screen name="Asignatures" component={PantallaPrincipal} />
                                     <Draw.Screen name ="CreaFita" component={CreaFita} />
                                     <Draw.Screen name ="ListaFites" component={ListaFites} />
+                                    <Draw.Screen name ="EditaUsuari" component={EditaUsuari} />
                                     <Draw.Screen name ="CodigoArchivo" component={CodigoArchivo} 
                                     options={{
                                             title: 'Codigo amigo',
