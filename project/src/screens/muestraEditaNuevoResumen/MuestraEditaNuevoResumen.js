@@ -33,6 +33,7 @@ class MuestraEditaNuevoResumen extends Component {
     consultaResumen  = async() => {
         const aux = await getItem('textFoto');
         this.setState({text:aux});
+        console.log(this.state.text,"312321321321321");
     }
 
     GuardaResumen = async() => {
@@ -45,8 +46,6 @@ class MuestraEditaNuevoResumen extends Component {
 
 
     render(){
-
-
         return (
             <View style={styles.MainContainerMostrarResumen}>
 

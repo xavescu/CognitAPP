@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    Alert
 } from 'react-native';
 import styles from '../../styles/styles';
 import ImagePicker from 'react-native-image-picker';
@@ -15,17 +16,45 @@ export default class OCRButton extends Component{
         image: null
     };
 
+
+    onPressHandlerImage = async() => {
+        this.foto = '1';
+        await storeItem('foto',this.foto);
+        this._pickImage();
+    }
+
+
+
+    onPressHandlerText = async() => {
+        this.foto = '0';
+        await storeItem('foto',this.foto);
+        this._pickImage();
+    }
+
+
+
     render() {
         const { image } = this.state;
         return(
         //'IniciarCamera'   'MuestraEditaNuevoResumen'
-        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={this._pickImage}>
+        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={this.imageOrText}>
             <View style={styles.listItemContainer}>
                 <Text style={styles.ItemHeader}>Realizar Escaneo</Text>
                 <Image style={styles.pencil} source={require('../../Images/camera.png')} />
             </View>
         </TouchableOpacity>
         )
+    }
+    imageOrText = async () => {
+        Alert.alert(
+          "¡ALERTA HAMIGO!",
+          "¿Qué deseas escanear?",
+          [
+            { text: "Texto", onPress: this.onPressHandlerText },
+            { text: "Imagen", onPress: this.onPressHandlerImage }
+          ],
+          { cancelable: true }
+        );
     }
 
     _pickImage = async () => {
@@ -58,20 +87,23 @@ export default class OCRButton extends Component{
 
     async uploadFile() {
         const { base64 } = this.state;
-        console.log('Uploading file')
-        const textoScan = await query('ocr64', base64);
-        console.log('Result --> ' + textoScan);
-        await storeItem('textFoto', textoScan);
-        this.props.navigation.navigate('MuestraEditaNuevoResumen');
-
+       if(this.foto == '0'){
+           console.log('Uploading file')
+           const textoScan = await query('ocr64', base64);
+           console.log('Result --> ' + textoScan);
+           await storeItem('textFoto', textoScan);
+           console.log("resumen",this.foto);
+           this.props.navigation.navigate('MuestraEditaNuevoResumen');
+       }else{
+           console.log("foto",this.foto);
+           this.props.navigation.navigate('MuestraImagen',{textoImagen: this.state.base64});
+       }
     }
-
 }
 
 const query = async (endpoint, form) => {
     var formdata = new FormData();
     formdata.append("img", form);
-
     var requestOptions = {
         method: 'POST',
         body: formdata,

@@ -35,6 +35,8 @@ import ModificarResumen from './src/screens/modificarResumen/ModificarResumen';
 import MuestraEditaNuevoResumen from './src/screens/muestraEditaNuevoResumen/MuestraEditaNuevoResumen';
 import GuardaTextoScan from './src/screens/GuardaTextoScan/GuardaTextoScan';
 import MuestraEditaResumen from './src/screens/muestraEditaResumen/muestraEditaResumen';
+import MuestraImagen from './src/screens/muestraImagen/MuestraImagen';
+
 
 const Tab = createMaterialTopTabNavigator();
 const AuthContext = React.createContext();
@@ -59,6 +61,7 @@ const PantallaPrincipal = () => (
             <Stack.Screen name ="MuestraEditaNuevoResumen" component={MuestraEditaNuevoResumen} />
             <Stack.Screen name ="GuardaTextoScan" component={GuardaTextoScan}/>
             <Stack.Screen name ="MuestraEditaResumen" component={MuestraEditaResumen} />
+            <Stack.Screen name="MuestraImagen" component={MuestraImagen} />
         </Stack.Navigator>
 )
 
@@ -130,7 +133,7 @@ function SignInScreen({ navigation }) {
 
                     <TouchableOpacity >
                         <Text style = {styles.NombreLogin} >  
-                        Nombre : 
+                        Nombre/Email :
                         </Text>
 
                         <TextInput 

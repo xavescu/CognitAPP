@@ -17,6 +17,7 @@ import Texttomp3 from '../../CommonFunctions/mp3/texttomp3';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
 import MuestraEditaResumen from '../muestraEditaResumen/muestraEditaResumen';
+import MuestraImagen from '../muestraImagen/MuestraImagen';
 
 export default class ListaResumenes extends PureComponent {
 
@@ -50,11 +51,13 @@ export default class ListaResumenes extends PureComponent {
             const id = await getItem('idTemaActual');
             const res = await query('queryResumenes', { "id": id });
             var aux = [];
+
             if (res.resumenes != "") {
                 for (let i = 0; i < res.resumenes.length; i++) {
-                    aux.push({ id: res.resumenes[i].id, nombre: res.resumenes[i].nombre });
+                    aux.push({ id: res.resumenes[i].id, nombre: res.resumenes[i].nombre, foto: res.resumenes[i].foto, texto: res.resumenes[i].texto  });
                 }
             }
+
             this.setState({ resumenes: aux, loading: false });
         } catch (err) {
             console.log("Error getting Resumenes data->", err);
@@ -77,46 +80,27 @@ export default class ListaResumenes extends PureComponent {
         this.setState({fondoBoton1: false});
     }
 
-    GetResumenes = (form) => {
-        var formBody = [];
-        for (var property in form) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(form[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody = formBody.join("&");
-        return fetch('http://cognitapp.duckdns.org/queryResumenes', {
-            method: 'POST',
-            headers: {
-                'Accept': 'x-www-form-urlencoded',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: formBody
-        })
-            .then((response) => response.json())
-            .then((res) => {
-                var aux = [];
-                if (res.resumenes != "") {
-                    for (let i = 0; i < res.resumenes.length; i++) {
-                        aux.push({ id: res.resumenes[i].id_documento, nombre: res.resumenes[i].nombre });
-                    }
-                }
-                return aux;
-            })
-    }
-
     render() {
         const { resumenes, loading } = this.state;
         const { navigation } = this.props;
         const { first_run } = this.state;
         const { fondoBoton1 } = this.state;
 
-         const itemPressed = async (id_res, nombre) => {
+         const itemPressed = async (id_res, nombre, fotico, textaco) => {
             let id_tema = await getItem('idTemaActual');
+            //console.log(id_res,"id_res")
+            //console.log(nombre,"nombre")
+
             await storeItem('id_resumen', id_res);
             await storeItem('nombre_documento', nombre);
-            await storeItem('id_tema', id_tema);
-            navigation.navigate('MuestraEditaResumen');
+            await storeItem('id_tema', id_tema)
+            await storeItem('foto', fotico);
+
+            if(fotico == '1'){
+                navigation.navigate('MuestraImagen', {textoImagen: textaco});
+            }else{
+                navigation.navigate('MuestraEditaResumen');
+            }
          }
 
         const itemModificar = async (id, nombre) => {
@@ -124,7 +108,7 @@ export default class ListaResumenes extends PureComponent {
             await storeItem('nombreResumen', nombre);
             navigation.navigate('ModificarResumen');
         }
-
+        console.log(this.state.esFoto)
         if (!loading) {
             return (
 				<SafeAreaView style={styles.container}>
@@ -132,10 +116,11 @@ export default class ListaResumenes extends PureComponent {
 					<SafeAreaView style={styles.container}>
 						<FlatList
 							data={resumenes}
-							renderItem={(data) =>
-								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
+							renderItem={(item) =>
+								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre, data.item.foto, data.item.texto) }}>
 									<View style={styles.listItemContainer}>
 										<Text style={styles.ItemHeader}>{data.item.nombre}</Text>
+
 										<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
 											<Image style={styles.pencil} source={require('../../Images/pencil.png')} />
 										</TouchableOpacity>
@@ -180,13 +165,17 @@ export default class ListaResumenes extends PureComponent {
 						<FlatList
 							data={resumenes}
 							renderItem={(data) =>
-								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
+								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre, data.item.foto, data.item.texto) }}>
 									<View style={styles.listItemContainer}>
 										<Text style={styles.ItemHeader}>{data.item.nombre}</Text>
 										<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
 											<Image style={styles.pencil} source={require('../../Images/pencil.png')} />
 										</TouchableOpacity>
-                                        <Texttomp3 txt={data.item.nombre} txt2={data.item.id}></Texttomp3> 
+
+										{data.item.foto == '0' ? (
+										    <Texttomp3 txt={data.item.nombre} txt2={data.item.id}></Texttomp3>) : (<Text/>)
+										}
+
 									</View>
 								</TouchableOpacity>
 							}

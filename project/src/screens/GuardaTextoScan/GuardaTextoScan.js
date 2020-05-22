@@ -262,12 +262,16 @@ export default class GuardaTextoScan extends Component {
 
   guardar= async ()=>{
     const aux = await getItem('textFoto');
+    const foto = await getItem('foto');
+    //foto = await storeItem('foto',foto)
     console.log("Aux Texto----->", aux );
+    console.log("Aux Texto----->", foto );
     var form = {  
       id: this.state.pickerTema,
       nombre: this.state.Nombreresumen,
-          texto: aux,
-          tipo: this.state.selectTipos,
+      texto: aux,
+      tipo: this.state.selectTipos,
+      foto: foto,
     }
       var formBody = [];
       for (var property in form) {
