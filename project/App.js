@@ -36,7 +36,8 @@ import MuestraEditaNuevoResumen from './src/screens/muestraEditaNuevoResumen/Mue
 import GuardaTextoScan from './src/screens/GuardaTextoScan/GuardaTextoScan';
 import MuestraEditaResumen from './src/screens/muestraEditaResumen/muestraEditaResumen';
 import MuestraImagen from './src/screens/muestraImagen/MuestraImagen';
-
+import CreaFita from './src/screens/CreaFita/CreaFita';
+import ListaFites from './src/screens/ListaFitas/ListaFitas';
 
 const Tab = createMaterialTopTabNavigator();
 const AuthContext = React.createContext();
@@ -314,6 +315,8 @@ export default function App({ navigation }) {
                                 // User is signed in
                                 <>
                                     <Draw.Screen name="Asignatures" component={PantallaPrincipal} />
+                                    <Draw.Screen name ="CreaFita" component={CreaFita} />
+                                    <Draw.Screen name ="ListaFites" component={ListaFites} />
                                     <Draw.Screen
                                         name="SignOut"
                                         component={SignOut}
