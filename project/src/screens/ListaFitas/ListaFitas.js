@@ -15,6 +15,7 @@ import { getItem } from '../../CommonFunctions/ManageItems';
 
 let label_done = '';
 let label_NoDone = '';
+let label_CargarPantalla = '';
 
 export default class ListaFitas extends PureComponent {
 
@@ -56,12 +57,15 @@ export default class ListaFitas extends PureComponent {
          if(this.state.idioma == 'CAST') {
             label_done = 'Hecho';
             label_NoDone = 'Falta por hacer';
+            label_CargarPantalla = 'Cargar Pantalla';
         }else if(this.state.idioma == 'CAT') {
             label_done = 'Fet';
             label_NoDone = 'Falta per fer';
+            label_CargarPantalla = 'Carregar Pantalla';
         }else if(this.state.idioma == 'ENG'){
             label_done = 'Done';
             label_NoDone = 'Not done';
+            label_CargarPantalla = 'Reload Screen';
         }
 
 
@@ -86,6 +90,13 @@ export default class ListaFitas extends PureComponent {
                             </TouchableOpacity>
                         }
                         keyExtractor={(item) => item.id} />
+                    <View>
+                        <TouchableOpacity style={styles.background_grey} onPress = {()=>this.refreshFites()}>
+                            <View style={styles.listItemContainer}>
+                                <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </SafeAreaView>
             )
         } else {
