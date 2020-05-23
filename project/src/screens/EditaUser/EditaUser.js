@@ -74,7 +74,7 @@ onPickerValueChange=(value, index)=>{
     },
     () => {
       // here is our callback that will be fired after state change.
-      this.state.selectIdioma(value);
+      this.selectIdioma(value);
     }
   );
 }
@@ -173,8 +173,8 @@ onPickerValueChange=(value, index)=>{
                           selectedValue={this.state.idioma}
                           onValueChange={this.onPickerValueChange}>
                             <Picker.Item label="Castellano" value='CAST' />
-                            <Picker.Item label="Catalan" value='CAT' />
-                            <Picker.Item label="Ingles" value='ENG' />
+                            <Picker.Item label="Català" value='CAT' />
+                            <Picker.Item label="English" value='ENG' />
                       </Picker>
                   </TouchableOpacity>
 
