@@ -16,6 +16,7 @@ import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
+import PushNotification from 'react-native-push-notification';
 
 let label_CrearAsignatura = '';
 let label_RealizarEscaneo = '';
@@ -58,6 +59,7 @@ export default class ListaAsignaturas extends PureComponent {
             this.setState({first_run: false});
         }
         this.llenarAsignatura();
+        this.llenarfitas();
     }
 
     async llenarAsignatura(){
@@ -73,6 +75,48 @@ export default class ListaAsignaturas extends PureComponent {
             this.setState({ asignaturas: aux, loading: false });
         } catch (err) {
             console.log("Error getting Asignaturas data->", err);
+        }
+    }
+
+    async llenarfitas(){
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth()+1;
+        var year = currentDate.getFullYear();
+        var noti = false ; 
+        try {
+            const id = await getItem('idUsuario');
+            const res = await query('getFites', { "id": id });
+            if (res.fites != "") {
+                for (let i = 0; i < res.fites.length; i++) {
+                    if(res.fites[i].tipo_recordatorio==0){
+                    aux = [];
+                    aux =  res.fites[i].fecha_limite.split('-');
+                    if(aux[2]<=4){
+                        aux[2]=31;
+                        aux[1]= aux[1]-1; 
+                    }
+                    if(year==aux[0]){
+                        if(month==aux[1]){
+                            if(day+4>=aux[2]){
+                                console.log("notificacion");
+                                PushNotification.localNotification({
+                                autoCancel: true,
+                                bigText:res.fites[i].descripcion,
+                                subText: 'Te recuerda que .. ',
+                                title:  res.fites[i].nombre,
+                                message: 'Alerta',
+                                actions: '["Vale", "Si"]'
+                            })
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } catch (err) {
+            console.log("Error getting Fites data->", err);
         }
     }
 
