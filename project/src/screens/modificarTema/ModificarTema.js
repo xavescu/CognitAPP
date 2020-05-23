@@ -13,6 +13,13 @@ import {
 import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
+let label_Tema = '';
+let label_Nombre = '';
+let label_Asignatura = '';
+let label_Guardar = '';
+let label_Borrar = '';
+
+
 
 class ModificarTema extends Component {
   state = {
@@ -26,11 +33,14 @@ class ModificarTema extends Component {
     newSubjectId: 0,
     newSubject: '',
     asignaturas_ids: [],
-      asignaturas: []
+    asignaturas: [],
+    idioma: ''
   }
 
     async componentDidMount() {
         try {
+            const idioma_temp = await getItem('idioma');
+            this.setState({idioma: idioma_temp});
             const id = await getItem("idTemaModificar");
             const userid = await getItem("idUsuario");
             this.setState({ temaId: id, userId: userid });
@@ -72,7 +82,7 @@ class ModificarTema extends Component {
         else {
             alert('Error');
         }
-        
+
   }
 
     deleteTema = async () => {
@@ -85,7 +95,7 @@ class ModificarTema extends Component {
         else {
             alert('Error');
         }
-        
+
   }
 
   /*querySubject = () => {
@@ -99,23 +109,43 @@ class ModificarTema extends Component {
     render() {
         const { navigation } = this.props;
 
+        if(this.state.idioma == 'CAST'){
+          label_Tema = 'TEMA';
+          label_Nombre = 'Nombre';
+          label_Asignatura = 'Asignatura';
+          label_Guardar = 'Guardar';
+          label_Borrar = 'Borrar';
+        }else if(this.state.idioma == 'CAT'){
+          label_Tema = 'TEMA';
+          label_Nombre = 'Nom';
+          label_Asignatura = 'Assignatura';
+          label_Guardar = 'Guardar';
+          label_Borrar = 'Esborrar';
+        }else if(this.state.idioma == 'ENG'){
+          label_Tema = 'THEME';
+          label_Nombre = 'Name';
+          label_Asignatura = 'Subject';
+          label_Guardar = 'Save';
+          label_Borrar = 'Delete';
+        }
+
     return (
       <View style={styles.container}>
         <View style={styles.countContainer}>
           <Text>
-            TEMA
+            {label_Tema}
           </Text>
           <Text>
-            Nombre
+            {label_Nombre}
           </Text>
           <TextInput
-            placeholder="Nombre"
+            placeholder={label_Nombre}
             returnKeyLabel={"next"}
             onChangeText={(text) => this.setState({newNombre:text})}
             value={this.state.newNombre}
           ></TextInput>
           <Text>
-            Asignatura
+            {label_Asignatura}
           </Text>
           <View>
             <Picker
@@ -131,12 +161,12 @@ class ModificarTema extends Component {
           <View style={{flexDirection:"row"}}>
             <Button
               onPress={() => this.editTema()}
-              title="guardar"
+              title={label_Guardar}
               color="#20ff20"
             />
             <Button
               onPress={() => this.deleteTema(navigation)}
-              title="borrar"
+              title={label_Borrar}
               color="#ff0000"
             />
           </View>

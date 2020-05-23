@@ -18,7 +18,10 @@ import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 
-
+let label_EditarAsignatura = '';
+let label_NombreAsignatura = '';
+let label_Editar = '';
+let label_Eliminar = '';
 
 export default class Modificar extends Component {
   constructor(props) {
@@ -27,11 +30,14 @@ export default class Modificar extends Component {
       NombreAsignatura:'Default',
       NuevoNombre:'Default',
       update: false,
+      idioma: ''
     };
   }
 
   componentDidMount= async () =>{
     try {
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma: idioma_temp});
         const nombreAsignatura = await getItem('nombreAsignatura');
         this.setState({NombreAsignatura: nombreAsignatura});
         this.setState({NuevoNombre: nombreAsignatura});
@@ -108,11 +114,30 @@ export default class Modificar extends Component {
 
 
   render() {
+
+
+    if(this.state.idioma == 'CAST'){
+      label_EditarAsignatura = 'Editar Asignatura';
+      label_NombreAsignatura = 'Nombre Asignatura :';
+      label_Editar = 'Editar';
+      label_Eliminar = 'Eliminar';
+    }else if(this.state.idioma == 'CAT'){
+      label_EditarAsignatura = 'Editar Assignatura';
+      label_NombreAsignatura = 'Nom Assignatura :';
+      label_Editar = 'Editar';
+      label_Eliminar = 'Eliminar';
+    }else if(this.state.idioma == 'ENG'){
+      label_EditarAsignatura = 'Edit Subject';
+      label_NombreAsignatura = 'Subject Name :';
+      label_Editar = 'Edit';
+      label_Eliminar = 'Delete';
+    }
+
     return (
       <View style = {styles.LoginGeneral}> 
-        <Text  style = {styles.BodyHeader} > EditarAsignatura </Text>
+        <Text  style = {styles.BodyHeader} >{label_EditarAsignatura}</Text>
         <TouchableOpacity>
-                      <Text>Nombre Asignatura :</Text>
+                      <Text>{label_NombreAsignatura}</Text>
                       <TextInput 
                           placeholder= {this.state.NombreAsignatura}
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -127,7 +152,7 @@ export default class Modificar extends Component {
                   </TouchableOpacity>
 
                   <Button 
-                      title = "Editar" 
+                      title = {label_Editar} 
                       color="#084081" 
                       style = {styles.botonLogin} 
                      
@@ -135,7 +160,7 @@ export default class Modificar extends Component {
                    />
 
                   <Button 
-                      title = "Eliminar" 
+                      title = {label_Eliminar} 
                       color="#084081" 
                       style = {styles.botonLogin}
                       onPress={()=>this.DeleteAsignatura()}

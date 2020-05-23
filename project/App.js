@@ -262,6 +262,7 @@ export default function App({ navigation }) {
                 }
                 const res = await query('login', params);
                 if (res.status === true) {
+                    await storeItem('idioma', 'CAST');
                     await storeItem('idUsuario', res.id);
                     await storeItem('tutorial', res.tutorial);
                     console.log(res.tutorial);
@@ -271,7 +272,7 @@ export default function App({ navigation }) {
                 } else {
                     if (res.status != true)
                         console.log("res----->", res.status)
-                    alert('Usuario o Contrase�a Incorrecta')
+                    alert('Usuario o Contraseña Incorrecta')
                     { SignInScreen }
                 }
             } catch (err) {

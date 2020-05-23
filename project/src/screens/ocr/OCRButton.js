@@ -10,20 +10,29 @@ import styles from '../../styles/styles';
 import ImagePicker from 'react-native-image-picker';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems'; 
 
-export default class OCRButton extends Component{
-    state = {
-        base64: null,
-        image: null
-    };
+let label_RealizarEscaneo = '';
+let label_ALERTAHAMIGO = '';
+let label_RealizarEscaneo2 = '';
+let label_Texto = '';
+let label_Imagen = '';
 
+export default class OCRButton extends Component{
+        state = {
+            base64: null,
+            image: null,
+            idioma:'',
+        };
+
+    async componentDidMount() {
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma : idioma_temp});
+    }
 
     onPressHandlerImage = async() => {
         this.foto = '1';
         await storeItem('foto',this.foto);
         this._pickImage();
     }
-
-
 
     onPressHandlerText = async() => {
         this.foto = '0';
@@ -34,12 +43,35 @@ export default class OCRButton extends Component{
 
 
     render() {
+
+        if(this.state.idioma == 'CAST') {
+            label_RealizarEscaneo = 'Realizar Escaneo';
+            label_ALERTAHAMIGO = '¡ALERTA!';
+            label_RealizarEscaneo2 = '¿Qué deseas escanear?';
+            label_Texto = 'Texto';
+            label_Imagen = 'Imagen';
+
+        }else if(this.state.idioma == 'CAT') {
+            label_RealizarEscaneo = 'Realitzar Escaneig';
+            label_ALERTAHAMIGO = 'ALERTA!';
+            label_RealizarEscaneo2 = 'Que desitges escanejar?';
+            label_Texto = 'Text';
+            label_Imagen = 'Imatge';
+
+        }else if(this.state.idioma == 'ENG'){
+            label_RealizarEscaneo = 'Execute Scan';
+            label_ALERTAHAMIGO = 'ALERT!';
+            label_RealizarEscaneo2 = 'What you gonna scan?';
+            label_Texto = 'Text';
+            label_Imagen = 'Image';
+        }
+
         const { image } = this.state;
         return(
         //'IniciarCamera'   'MuestraEditaNuevoResumen'
         <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={this.imageOrText}>
             <View style={styles.listItemContainer}>
-                <Text style={styles.ItemHeader}>Realizar Escaneo</Text>
+                <Text style={styles.ItemHeader}>{label_RealizarEscaneo}</Text>
                 <Image style={styles.pencil} source={require('../../Images/camera.png')} />
             </View>
         </TouchableOpacity>
@@ -47,11 +79,11 @@ export default class OCRButton extends Component{
     }
     imageOrText = async () => {
         Alert.alert(
-          "¡ALERTA HAMIGO!",
-          "¿Qué deseas escanear?",
+          {label_ALERTAHAMIGO},
+          {label_RealizarEscaneo},
           [
-            { text: "Texto", onPress: this.onPressHandlerText },
-            { text: "Imagen", onPress: this.onPressHandlerImage }
+            { text: label_Texto, onPress: this.onPressHandlerText },
+            { text: label_Imagen, onPress: this.onPressHandlerImage }
           ],
           { cancelable: true }
         );

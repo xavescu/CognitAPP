@@ -13,14 +13,20 @@ import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { getItem } from '../../CommonFunctions/ManageItems';
 
+let label_done = '';
+let label_NoDone = '';
+
 export default class ListaFitas extends PureComponent {
 
     state = {
         fitas: [],
         loading: true,
+        idioma:''
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const idioma_tmp = await getItem('idioma');
+        this.setState({idioma : idioma_tmp});
         this.refreshFites();
     }
 
@@ -47,6 +53,17 @@ export default class ListaFitas extends PureComponent {
 
     render() {
         const { fitas, loading } = this.state;
+         if(this.state.idioma == 'CAST') {
+            label_done = 'Hecho';
+            label_NoDone = 'Falta por hacer';
+        }else if(this.state.idioma == 'CAT') {
+            label_done = 'Fet';
+            label_NoDone = 'Falta per fer';
+        }else if(this.state.idioma == 'ENG'){
+            label_done = 'Done';
+            label_NoDone = 'Not done';
+        }
+
 
         const itemPressed = async (id) => {
             await query('completarFita', { "id": id });
@@ -63,7 +80,7 @@ export default class ListaFitas extends PureComponent {
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
                                     <Text>{data.item.fecha_limite}</Text>
-                                    { data.item.hecho == 0 ? (<Text> not done </Text>) : (<Text> done </Text>) }
+                                    { data.item.hecho == 0 ? (<Text> {label_NoDone} </Text>) : (<Text> {label_done} </Text>) }
                                 </View>
                             </TouchableOpacity>
                         }

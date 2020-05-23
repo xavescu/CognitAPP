@@ -5,7 +5,7 @@ import styles from '../../styles/styles';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems'; 
 
 
-
+let label_Guardar = '';
 
 class MuestraEditaNuevoResumen extends Component {
 
@@ -15,12 +15,14 @@ class MuestraEditaNuevoResumen extends Component {
             text: '',
             tipo:'0',
             editable: false,
-           
+            idioma:''
         };
     }
 
 
-    componentDidMount() {
+    async componentDidMount() {
+      const idioma_tmp = await getItem('idioma');
+      this.setState({idioma : idioma_tmp});
       this.consultaResumen();
     }
 
@@ -33,7 +35,7 @@ class MuestraEditaNuevoResumen extends Component {
     consultaResumen  = async() => {
         const aux = await getItem('textFoto');
         this.setState({text:aux});
-        console.log(this.state.text,"312321321321321");
+        //console.log(this.state.text,"textoo");
     }
 
     GuardaResumen = async() => {
@@ -46,6 +48,12 @@ class MuestraEditaNuevoResumen extends Component {
 
 
     render(){
+        if(idioma == 'CAST' || idioma == 'CAT'){
+             label_Guardar = 'Guardar';
+        }else if(idioma == 'ENG'){
+             label_Guardar = 'Save';
+        }
+
         return (
             <View style={styles.MainContainerMostrarResumen}>
 
@@ -60,7 +68,7 @@ class MuestraEditaNuevoResumen extends Component {
                     style={styles.ButtonChange}
                     onPress={this.GuardaResumen}
                 >
-                    <Text style={styles.textStyle}> Guardar </Text>
+                    <Text style={styles.textStyle}>{label_Guardar}</Text>
                 </TouchableOpacity>
             </View>
         );

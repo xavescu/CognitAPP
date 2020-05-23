@@ -6,6 +6,12 @@ import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 
+
+let label_CrearFita = '';
+let label_Nombre = '';
+let label_Descripcion = '';
+let label_Crear = '';
+
 export default class MuestraEditaResumen extends Component {
 
     constructor(props) {
@@ -16,10 +22,13 @@ export default class MuestraEditaResumen extends Component {
           date:'2020-05-15',
           tipo_recordatorio: 0,
           update: false,
+          idioma: ''
         };
       }
 
-      componentDidMount = () => {
+      componentDidMount = async () => {
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma: idioma_temp});
         var d=new Date();
         this.setState({date:d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()});
       }
@@ -46,11 +55,30 @@ export default class MuestraEditaResumen extends Component {
       }
 
     render() {
+
+
+    if(this.state.idioma == 'CAST'){
+      label_CrearFita = 'Crear Hito';
+      label_Nombre = 'Nombre: ';
+      label_Descripcion = 'Descripcion:';
+      label_Crear = 'Crear';
+    }else if(this.state.idioma == 'CAT'){
+      label_CrearFita = 'Crear Fita';
+      label_Nombre = 'Nom:';
+      label_Descripcion = 'Descripcio:';
+      label_Crear = 'Crear';
+    }else if(this.state.idioma == 'ENG'){
+      label_CrearFita = 'Create Goal';
+      label_Nombre = 'Name';
+      label_Descripcion = 'Description';
+      label_Crear = 'Create';
+    }
+
     return (
       <View style = {styles.LoginGeneral}> 
-        <Text  style = {styles.BodyHeader} > Crear Fita </Text>
+        <Text  style = {styles.BodyHeader} >{label_CrearFita}</Text>
                     <TouchableOpacity>
-                      <Text>Nombre :</Text>
+                      <Text>{label_Nombre}</Text>
                       <TextInput 
                           placeholder= "Nombre de hito"
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -64,7 +92,7 @@ export default class MuestraEditaResumen extends Component {
                   
                   </TouchableOpacity>
                   <TouchableOpacity>
-                      <Text>Descripción :</Text>
+                      <Text>{label_Descripcion}</Text>
                       <TextInput 
                           placeholder= "Nombre de hito"
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -99,7 +127,7 @@ export default class MuestraEditaResumen extends Component {
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
                   <Button 
-                      title = "Crear" 
+                      title = {label_Crear}
                       color="#084081" 
                       style = {styles.botonLogin}
                       onPress={()=>this.CrearFita()}

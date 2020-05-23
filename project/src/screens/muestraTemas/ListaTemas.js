@@ -17,6 +17,14 @@ import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
 
+let label_CrearTema = '';
+let label_RealizarEscaneo = '';
+let label_CargarPantalla = '';
+let label_EntraEnTuTemaNuevoParaCrearTuPrimerDocumento = '';
+let label_ConEsteBotonPodrasRecargarLaPantalla = '';
+let label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = '';
+let label_ConEsteBotonPodrasCrearNuevosTemasPorFavorCreaUnNuevoTema = '';
+
 export default class ListaTemas extends PureComponent {
 
     state = {
@@ -33,6 +41,7 @@ export default class ListaTemas extends PureComponent {
         fondoBoton2: false,
         fondoBoton3: false,
         fondoBoton4: false,
+        idioma: '',
     }
 
     async componentDidMount() {
@@ -48,6 +57,8 @@ export default class ListaTemas extends PureComponent {
 
     async llenarTema() {
         try {
+            const idioma_temp = await getItem('idioma');
+            this.setState({idioma: idioma_temp});
             const id = await getItem('idAsignaturaActual');
             const res = await query('queryTemas', { "id": id });
             var aux = [];
@@ -125,7 +136,7 @@ export default class ListaTemas extends PureComponent {
                 this.cancelar();
                 if(this.state.first_run == true){
                     this.showCuartaPantalla();
-                } 
+                }
             }
         } catch (err) {
             console.log("Error creating Tema data->", err);
@@ -140,6 +151,34 @@ export default class ListaTemas extends PureComponent {
         const { fondoBoton2 } = this.state;
         const { fondoBoton3 } = this.state;
         const { fondoBoton4 } = this.state;
+
+
+
+        if (this.state.idioma == 'CAST'){
+            label_CrearTema = 'Crear Tema';
+            label_RealizarEscaneo = 'Realizar Escaneo';
+            label_CargarPantalla = 'Cargar Pantalla';
+            label_EntraEnTuTemaNuevoParaCrearTuPrimerDocumento = 'Entra en tu nuevo Tema para crear tu primer documento!';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'Con este boton podras recargar la pantalla';
+            label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = 'Con este boton podras escanear los resumenes o fotos que quieras';
+            label_ConEsteBotonPodrasCrearNuevosTemasPorFavorCreaUnNuevoTema = 'Con este boton podras crear nuevos temas. Por favor crea un nuevo Tema';
+        } else if (this.state.idioma == 'CAT'){
+            label_CrearTema = 'Crar Tema';
+            label_RealizarEscaneo = 'Realitzar Escaneig';
+            label_CargarPantalla = 'Cargar Pantalla';
+            label_EntraEnTuTemaNuevoParaCrearTuPrimerDocumento = 'Entra en el teu nou Tema per crear el teu primer document!';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'Amb aquest boto podras carregar la pantalla';
+            label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = 'Amb aquest boto podras escanejar els resums o fotos que vulguis';
+            label_ConEsteBotonPodrasCrearNuevosTemasPorFavorCreaUnNuevoTema = 'Amb aquest boto podras crear nous temes. Siusplau crea un nou Tema';
+        } else if (this.state.idioma == 'ENG'){
+            label_CrearTema = 'Create Theme';
+            label_RealizarEscaneo = 'Executen Scan';
+            label_CargarPantalla = 'Reload Screen';
+            label_EntraEnTuTemaNuevoParaCrearTuPrimerDocumento = 'Enter in your new theme to create your first document';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'With this button you will be available to reload the screen';
+            label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = 'With thi button you will be available to scan resumes or photos';
+            label_ConEsteBotonPodrasCrearNuevosTemasPorFavorCreaUnNuevoTema = 'With thi button you will be available create new Themes. Please, create a new Theme';
+        }
 
         const itemPressed = async (id) => {
             await storeItem('idTemaActual',id);
@@ -172,13 +211,13 @@ export default class ListaTemas extends PureComponent {
                         <View>
                         <TouchableOpacity style={fondoBoton3 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showVentana()}>
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Crear Tema</Text>
+                                <Text style={styles.ItemHeader}>{label_CrearTema}</Text>
                                 <Image style={styles.pencil} source={require('../../Images/iconPlus.png')}/>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity style={fondoBoton2 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()} >
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Realizar Escaneo</Text>
+                                <Text style={styles.ItemHeader}>{label_RealizarEscaneo}</Text>
                                 <Image style={styles.pencil} source={require('../../Images/camera.png')} />
                             </View>
                         </TouchableOpacity>
@@ -186,14 +225,14 @@ export default class ListaTemas extends PureComponent {
                         <View>
                             <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()}>
                                 <View style={styles.listItemContainer}>
-                                    <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                    <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <Modal visible={this.state.mostrarAyudaNuevo} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Entra en tu Tema nuevo para crear tu primer documento!</Text>
+                                <Text>{label_EntraEnTuTemaNuevoParaCrearTuPrimerDocumento}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -204,7 +243,7 @@ export default class ListaTemas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaCargar} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras reacargar la pantalla</Text>
+                                <Text>{label_ConEsteBotonPodrasRecargarLaPantalla}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -215,7 +254,7 @@ export default class ListaTemas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaScan} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras escanear los resumenes o fotos que quieras</Text>
+                                <Text>{label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -226,7 +265,7 @@ export default class ListaTemas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaCrear} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras crear nuevos temas. Por favor crea un nuevo Tema</Text>
+                                <Text>{label_ConEsteBotonPodrasCrearNuevosTemasPorFavorCreaUnNuevoTema}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -273,14 +312,14 @@ export default class ListaTemas extends PureComponent {
                         <View>
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => this.showVentana()}>
                                 <View style={styles.listItemContainer}>
-                                    <Text style={styles.ItemHeader}>Crear Tema</Text>
+                                    <Text style={styles.ItemHeader}>{label_CrearTema}</Text>
                                     <Image style={styles.pencil} source={require('../../Images/iconPlus.png')} />
                                 </View>
                             </TouchableOpacity>
                             <OCRButton navigation={this.props.navigation}/>
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarTema()}>
                                 <View style={styles.listItemContainer}>
-                                    <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                    <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

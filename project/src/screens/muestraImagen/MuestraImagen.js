@@ -6,7 +6,7 @@ import styles from '../../styles/styles';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 
 
-
+let label_Guardar = '';
 
 class MuestraImagen extends Component {
 
@@ -15,10 +15,15 @@ class MuestraImagen extends Component {
         this.state = {
             text: '',
             tipo:'0',
+            idioma:''
         };
         this.base64 = this.props.route.params.textoImagen;
     }
 
+    async componentDidMount() {
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma : idioma_temp});
+    }
 
     GuardaResumen = async() => {
         await storeItem('textFoto',this.base64)
@@ -32,6 +37,13 @@ class MuestraImagen extends Component {
 
 
     render(){
+
+        if(idioma == 'CAST' || idioma == 'CAT'){
+            label_Guardar = 'Guardar';
+        }else if(idioma == 'ENG'){
+            label_Guardar = 'Save';
+        }
+
         return (
             <View style={styles.MainContainerMostrarResumen}>
                 <Image style={{width: 150, height: 350, borderWidth: 1, borderColor: 'black', resizeMode: 'cover'}} source={{uri: `data:image/png;base64,${this.base64}`}}/>
@@ -40,7 +52,7 @@ class MuestraImagen extends Component {
                     style={styles.ButtonChange}
                     onPress={this.GuardaResumen}
                 >
-                    <Text style={styles.textStyle}> Guardar </Text>
+                    <Text style={styles.textStyle}>{label_Guardar}</Text>
                 </TouchableOpacity>
             </View>
         );

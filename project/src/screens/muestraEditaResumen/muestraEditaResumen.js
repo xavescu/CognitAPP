@@ -8,6 +8,12 @@ import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 let auxText;
 let auxName;
 let exist = false;
+let label_SeVaHaCompartirA = '';
+let label_GuardarCanvios = '';
+let label_EditaResumen = '';
+let label_Compartir = '';
+let label_UsernameAmigo = '';
+let label_Cancelar = '';
 
 class MuestraEditaResumen extends Component {
     constructor(props){
@@ -21,12 +27,15 @@ class MuestraEditaResumen extends Component {
             editable: false,
             showCompartir: false,
             userAmigo: 'Default',
+            idioma: ''
         };
         this.toggleEditable = this.toggleEditable.bind(this);
     }
 
-    componentDidMount() {
-      this.consultaResumen();
+    async componentDidMount() {
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma: idioma_temp});
+        this.consultaResumen();
     }
 
     handleChangeName=(e)=>{
@@ -129,7 +138,35 @@ class MuestraEditaResumen extends Component {
          console.log("ERROR", error);
         }
     }
+
     render(){
+
+        if(this.state.idioma == 'CAST'){
+            label_SeVaHaCompartirA = 'Se va ha compartir a: ';
+            label_GuardarCanvios = 'Guardar canvios';
+            label_EditaResumen = 'Edita Resumen';
+            label_Compartir = 'Compartir';
+            label_UsernameAmigo = 'Username amigo';
+            label_Compartir = 'Compartir';
+            label_Cancelar = 'Cancelar'
+        }else if(this.state.idioma == 'CAT'){
+            label_SeVaHaCompartirA = 'Es compartirà a: ';
+            label_GuardarCanvios = 'Guardar canvis';
+            label_EditaResumen = 'Edita Resum';
+            label_Compartir = 'Compartir';
+            label_UsernameAmigo = 'Username amic';
+            label_Compartir = 'Compartir';
+            label_Cancelar = 'Cancel·lar';
+        }else if(this.state.idioma == 'ENG'){
+            label_SeVaHaCompartirA = 'It will be share: ';
+            label_GuardarCanvios = 'Save changes';
+            label_EditaResumen = 'Edit Resume';
+            label_Compartir = 'Share';
+            label_UsernameAmigo = 'Friends Username';
+            label_Compartir = 'Share';
+            label_Cancelar = 'Cancel';
+        }
+
         return (
             <View style={styles.MainContainerMostrarResumen}>
                 <TextInput
@@ -147,22 +184,22 @@ class MuestraEditaResumen extends Component {
                     editable={this.state.editable}
                     onChangeText={this.handleChangeText}
                  />
-                
-                <Modal visible={this.state.showCompartir} 
+
+                <Modal visible={this.state.showCompartir}
                 transparent = {true}>
                     <View style = {styles.vModal2}>
-                        <Text>Se va ha compartir a: </Text>
+                        <Text>{label_SeVaHaCompartirA}</Text>
                         <View >
                             <TextInput
-                            placeholder= 'Username amigo'
+                            placeholder= {label_UsernameAmigo}
                             onChangeText={(userAmigo)=>this.setState({userAmigo})}
                             />
                         <Button
-                            title="Compartir"
+                            title={label_Compartir}
                             onPress = {()=>this.CompartirUsuario()}
                         />
                         <Button
-                            title="Cancelar"
+                            title={label_Cancelar}
                             onPress = {()=>this.cancelar()}
                         />
                         </View>
@@ -173,18 +210,18 @@ class MuestraEditaResumen extends Component {
                     style={!this.state.editable ? styles.ButtonEdit : styles.ButtonEditDisabled}
                     onPress={this.toggleEditable}
                 >
-                    <Text style={styles.textStyle}> Editar resumen </Text>
+                    <Text style={styles.textStyle}>{label_EditaResumen}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity disabled={!this.state.editable}
                     style={!this.state.editable ? styles.ButtonChangeDisabled : styles.ButtonChange}
                     onPress={this.editaResumen}
                 >
-                    <Text style={styles.textStyle}> Guardar cambios </Text>
+                    <Text style={styles.textStyle}>{label_GuardarCanvios}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.ButtonShare} onPress = {()=>this.showVentana()}>
-                    <Text style={styles.textStyle}> Compartir </Text>
+                    <Text style={styles.textStyle}>{label_Compartir}</Text>
                 </TouchableOpacity>
             </View>
         );

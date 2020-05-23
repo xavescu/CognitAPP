@@ -17,6 +17,15 @@ import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
 
+let label_CrearAsignatura = '';
+let label_RealizarEscaneo = '';
+let label_CargarPantalla = '';
+let label_EntraEnTuAsignaturaNueva = '';
+let label_ConEsteBotonPodrasRecargarLaPantalla = '';
+let label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = '';
+let label_ConEsteBotonPodrasCrearNuevasAsignaturasPorFavorCreaUnaNuevaAsignatura = '';
+
+
 export default class ListaAsignaturas extends PureComponent {
 
     state = {
@@ -34,11 +43,15 @@ export default class ListaAsignaturas extends PureComponent {
         fondoBoton2: false,
         fondoBoton3: false,
         fondoBoton4: false,
+        idioma:'',
     }
 
     async componentDidMount() {
         await storeItem('idPantalla', '1');
         const tutorial = await getItem('tutorial');
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma : idioma_temp});
+
         if (tutorial == 1){
             this.setState({first_run: true});
         }else{
@@ -141,6 +154,32 @@ export default class ListaAsignaturas extends PureComponent {
         const { fondoBoton3 } = this.state;
         const { fondoBoton4 } = this.state;
 
+        if(this.state.idioma == 'CAST') {
+            label_CrearAsignatura = 'Crear Asignatura';
+            label_RealizarEscaneo = 'Realizar Escaneo';
+            label_CargarPantalla = 'Cargar Pantalla';
+            label_EntraEnTuAsignaturaNueva = 'Entra en tu Asignatura nueva.';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'Con este boton podras recargar la pantalla';
+            label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = 'Con este boton podras escanear los resumenes o fotos que quieras';
+            label_ConEsteBotonPodrasCrearNuevasAsignaturasPorFavorCreaUnaNuevaAsignatura = 'Con este boton podras crear nuevas asignaturas. Por favor crea una nueva Asignatura';
+        }else if(this.state.idioma == 'CAT') {
+             label_CrearAsignatura = 'Crear Assignatura';
+             label_RealizarEscaneo = 'Realitzar Escaneig';
+             label_CargarPantalla = 'Carregar Pantalla';
+             label_EntraEnTuAsignaturaNueva = 'Entra a la teva nova Asignatura';
+             label_ConEsteBotonPodrasRecargarLaPantalla = 'Amb aquest boto podras carregar la pantalla';
+             label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = 'Amb aquest boto podras escanejar els resums o fotos que vulguis';
+             label_ConEsteBotonPodrasCrearNuevasAsignaturasPorFavorCreaUnaNuevaAsignatura = 'Amb aquest boto podras crear noves Asignatures. Siusplau crea una nova asignatura';
+        }else if(this.state.idioma == 'ENG') {
+            label_CrearAsignatura = 'Create Subject';
+            label_RealizarEscaneo = 'Execute Scan';
+            label_CargarPantalla = 'Reload Screen';
+            label_EntraEnTuAsignaturaNueva = 'Enter in your new Subject';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'With this button you will be available to reload the screen';
+            label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras = 'With thi button you will be available to scan resumes or photos';
+            label_ConEsteBotonPodrasCrearNuevasAsignaturasPorFavorCreaUnaNuevaAsignatura = 'With thi button you will be available to create new Subjects. Please, create a new subject';
+        }
+
         const itemPressed = async (id) => {
             await storeItem('idAsignaturaActual', id);
             navigation.navigate('Temas');
@@ -173,13 +212,13 @@ export default class ListaAsignaturas extends PureComponent {
                         <View>
                         <TouchableOpacity style={fondoBoton3 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showVentana()}>
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Crear Asignatura</Text>
+                                <Text style={styles.ItemHeader}>{label_CrearAsignatura}</Text>
                                 <Image style={styles.pencil} source={require('../../Images/iconPlus.png')}/>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity style={fondoBoton2 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()} >
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Realizar Escaneo</Text>
+                                <Text style={styles.ItemHeader}>{label_RealizarEscaneo}</Text>
                                 <Image style={styles.pencil} source={require('../../Images/camera.png')} />
                             </View>
                         </TouchableOpacity>
@@ -187,14 +226,14 @@ export default class ListaAsignaturas extends PureComponent {
                         <View>
                             <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()}>
                                 <View style={styles.listItemContainer}>
-                                    <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                    <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <Modal visible={this.state.mostrarAyudaNuevo} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Entra en tu Asignatura nueva.</Text>
+                                <Text>{label_EntraEnTuAsignaturaNueva}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -205,7 +244,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaCargar} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras reacargar la pantalla</Text>
+                                <Text>{label_ConEsteBotonPodrasReacargarLaPantalla}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -216,7 +255,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaScan} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras escanear los resumenes o fotos que quieras</Text>
+                                <Text>{label_ConEsteBotonPodrasEscanearLosResumenesOFotosQueQuieras}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -227,7 +266,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaCrear} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras crear nuevas asignaturas. Por favor crea una nueva Asignatura</Text>
+                                <Text>{label_ConEsteBotonPodrasCrearNuevasAsignaturasPorFavorCreaUnaNuevaAsignatura}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -275,7 +314,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <View>
                         <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.showVentana()}>
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Crear Asignatura</Text>
+                                <Text style={styles.ItemHeader}>{label_CrearAsignatura}</Text>
                                 <Image style={styles.pencil} source={require('../../Images/iconPlus.png')}/>
                             </View>
                         </TouchableOpacity>
@@ -284,7 +323,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <View>
                             <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarAsignatura()}>
                                 <View style={styles.listItemContainer}>
-                                    <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                    <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

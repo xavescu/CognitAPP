@@ -31,6 +31,16 @@ import {
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import { query } from '../../CommonFunctions/fetchQuery';
 
+
+let label_Añadir = '';
+let label_TituloDelTexto = '';
+let label_Guardar = '';
+let label_NombreAsignatura = '';
+let label_Crear = '';
+let label_Cancelar = '';
+let label_NombreTema = '';
+
+
 //anabana id 4
 
 var tipos = [
@@ -52,16 +62,17 @@ export default class GuardaTextoScan extends Component {
       NombreArchivo:'',
       showNombre:false,
       Nombreresumen:'',
+      idioma:''
     }
   }
-  
+
   temas = [{label: 'Temas: ',id: 'vacio'},{label: 'Crear Tema',id: 'Nuevo'}];
- 
+
   asignaturas = [{id: 'vacio',label: 'Asignaturas: '},{id: 'Nuevo',label: 'Crear Asignatura'}];
 
 
   ChooseSubject = (value)=> {
-    
+
     this.setState({pickerAsignatura: value});
     //alert(this.asignaturas.label); //value seria la id de la asignatura
 
@@ -109,7 +120,7 @@ export default class GuardaTextoScan extends Component {
     })
     .then((response) => response.json())
     .then((res) => {
-      if (res.status==true){   
+      if (res.status==true){
         this.setState({showAsignatura: false});
         console.log("Asignatura creada correctamente");
         this.GetAsignatura();
@@ -120,14 +131,16 @@ export default class GuardaTextoScan extends Component {
       })
    }
 
-   componentDidMount()
+   async componentDidMount()
    {
+   const idioma = await getItem('idioma');
+    this.setState({idioma : idioma});
     this.GetAsignatura();
    }
 
 
-  
-  GetAsignatura = async  ()=> { 
+
+  GetAsignatura = async  ()=> {
     const idRecibido = await getItem('idUsuario');
     console.log("id----> guarda texto ", idRecibido)
     var form = {
@@ -150,7 +163,7 @@ export default class GuardaTextoScan extends Component {
     .then((response) => response.json())
     .then((res) => {
       if (res.asignaturas!=""){
-          
+
         for(let i=0;i<res.asignaturas.length;i++ )
           {
             let aux = JSON.stringify(res.asignaturas[i].nombre).split("\"");
@@ -162,13 +175,13 @@ export default class GuardaTextoScan extends Component {
         else {
             alert('Error');
         }
-    }) 
+    })
   }
-  
+
 
 
   GetTemas=(value)=>{
-    var form = { 
+    var form = {
       id: value,
     }
     this.setState({pickerAsignatura: value});
@@ -196,12 +209,12 @@ export default class GuardaTextoScan extends Component {
               for(let i=0;i<res.temas.length;i++ ){
                 let aux = JSON.stringify(res.temas[i].nombre).split("\"");
                 let aux2 = JSON.stringify(res.temas[i].id).split("\"");
-             
-                this.temas.push({label: aux[1], 
+
+                this.temas.push({label: aux[1],
                   id: aux2[1]});
                   this.ChooseTheme();
               }
-              
+
         }
         else {
             alert('Error');
@@ -212,7 +225,7 @@ export default class GuardaTextoScan extends Component {
 
 
   createTheme=()=>{
-    var form = {  
+    var form = {
       nombre:this.state.newTema,
       id: this.state.pickerAsignatura,
   }
@@ -258,7 +271,7 @@ export default class GuardaTextoScan extends Component {
   }
 
 
- 
+
 
   guardar= async ()=>{
     const aux = await getItem('textFoto');
@@ -266,7 +279,7 @@ export default class GuardaTextoScan extends Component {
     //foto = await storeItem('foto',foto)
     console.log("Aux Texto----->", aux );
     console.log("Aux Texto----->", foto );
-    var form = {  
+    var form = {
       id: this.state.pickerTema,
       nombre: this.state.Nombreresumen,
       texto: aux,
@@ -309,7 +322,7 @@ export default class GuardaTextoScan extends Component {
     console.log("tutorial2 -: ", tutorial);
     if(tutorial == 1){
       this.disableTutorial();
-    } 
+    }
     switch(id){
         case '1':
             navigation.navigate('Asignaturas');
@@ -336,11 +349,39 @@ export default class GuardaTextoScan extends Component {
         console.log("Error getting Disable tutorial->", err);
     }
   }
+
   render(){
+    if(this.state.idioma == 'CAST'){
+         label_Añadir = 'Añadir';
+         label_TituloDelTexto = 'Titulo del texto';
+         label_Guardar = 'Guardar';
+         label_NombreAsignatura = 'Nombre Asignatura :';
+         label_Crear = 'Crear';
+         label_Cancelar = 'Cancelar';
+         label_NombreTema = 'Nombre Tema';
+    }else if(this.state.idioma == 'CAT'){
+         label_Añadir = 'Afegir';
+         label_TituloDelTexto = 'titol del text';
+         abel_Guardar = 'Guardar';
+         label_NombreAsignatura = 'Nom Assignatura :';
+         label_Crear = 'Crear';
+         label_Cancelar = 'Cancel·lar';
+         label_NombreTema = 'Nom Tema';
+    }else if(this.state.idioma == 'ENG'){
+         label_Añadir = 'Add';
+         label_TituloDelTexto = 'Text title';
+         label_Guardar = 'Save';
+         label_NombreAsignatura = 'Subject Name :';
+         label_Crear = 'Create';
+         label_Cancelar = 'Cancel';
+         label_NombreTema = 'Theme Name';
+    }
+
+
 
     return(
       <View>
-        <Text style={{fontSize:30}}>Añadir</Text>
+        <Text style={{fontSize:30}}>{label_Añadir}</Text>
         <Picker
         style={{ height: 50, width: 200 }}
         selectedValue={this.state.pickerAsignatura}
@@ -367,12 +408,12 @@ export default class GuardaTextoScan extends Component {
           buttonSize={10}
         />
         <TextInput
-            placeholder= 'Titulo del texto'
+            placeholder= {label_TituloDelTexto}
             onChangeText={(Nombreresumen)=>this.setState({Nombreresumen})} 
             style={{borderWidth:0.5}}/>
         
         <Button
-          title="Guardar"
+          title={label_Guardar}
           onPress = {()=>this.guardar()}
         />
         <View style={{flex: 1, marginTop: 100}}>
@@ -381,15 +422,15 @@ export default class GuardaTextoScan extends Component {
               <View style={styles.vModal}>
                 <View style={styles.vModal2}>
                   <TextInput
-                  placeholder= 'Nombre Asignatura'
+                  placeholder= {label_NombreAsignatura}
                   onChangeText={(newAsignatura)=>this.setState({newAsignatura})} 
                   style={{borderWidth:0.5}}/>
                   <Button
-                    title="Crear"
+                    title={label_Crear}
                     onPress = {()=>this.createSubject()}
                   />
                   <Button
-                    title="Cancelar"
+                    title={label_Cancelar}
                     onPress = {()=>this.cancelar()}
                   />
                 </View>
@@ -402,15 +443,15 @@ export default class GuardaTextoScan extends Component {
               <View style={styles.vModal}>
                 <View style={styles.vModal2}>
                   <TextInput
-                  placeholder= 'Nombre Tema'
+                  placeholder= {label_NombreTema}
                   onChangeText={(newTema)=>this.setState({newTema})} 
                   style={{borderWidth:0.5}}/>
                   <Button
-                    title="Crear"
+                    title={label_Crear}
                     onPress = {()=>this.createTheme()}
                   />
                   <Button
-                    title="Cancelar"
+                    title={label_Cancelar}
                     onPress = {()=>this.cancelar()}
                   />
                 </View>

@@ -5,6 +5,8 @@ import { View, Text,StyleSheet,
 
 import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
+import { storeItem } from '../../CommonFunctions/ManageItems';
+
 
 let nombre = this.nombre;
 let apellido= this.apellido;
@@ -38,6 +40,7 @@ let password = this.password;
              if (res.status == true) {
                  console.log(" Registro Response----->", res);
                  alert('Registrado correctamente');
+                 await storeItem('idioma', 'CAT');
              }
              else {
                  alert('Error en el registro');
@@ -86,7 +89,7 @@ let password = this.password;
                 </TouchableOpacity>
 
                 <TouchableOpacity style = {styles.Nombre}>
-                <Text style = {styles.Texto2}>user :</Text>
+                <Text style = {styles.Texto2}>Usuario :</Text>
                 <TextInput 
                 placeholder="" 
                 placeholderTextColor="#474646"
@@ -114,7 +117,7 @@ let password = this.password;
             </TouchableOpacity>
 
             <TouchableOpacity  style = {styles.Nombre}>
-                <Text style = {styles.Texto2}>Password :</Text>
+                <Text style = {styles.Texto2}>Contraseña :</Text>
                 <TextInput 
                 placeholder="" 
                 placeholderTextColor="#474646"

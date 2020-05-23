@@ -20,6 +20,10 @@ import MuestraEditaResumen from '../muestraEditaResumen/muestraEditaResumen';
 import MuestraImagen from '../muestraImagen/MuestraImagen';
 import RNFetchBlob from 'react-native-fetch-blob'
 
+let label_CargarPantalla = '';
+let label_ConEsteBotonPodrasRecargarLaPantalla = '';
+let label_AhoraCreaTuPrimerResumen = '';
+
 export default class ListaResumenes extends PureComponent {
 
     state = {
@@ -34,9 +38,12 @@ export default class ListaResumenes extends PureComponent {
         fondoBoton2: false,
         fondoBoton3: false,
         fondoBoton4: false,
+        idioma: ''
     }
 
     async componentDidMount() {
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma: idioma_temp});
         await storeItem('idPantalla', '3');
         const tutorial = await getItem('tutorial');
         if (tutorial == 1){
@@ -46,7 +53,7 @@ export default class ListaResumenes extends PureComponent {
         }
         this.llenarResumen();
     }
-	
+
 	async llenarResumen(){
 		try {
             const id = await getItem('idTemaActual');
@@ -122,6 +129,20 @@ export default class ListaResumenes extends PureComponent {
         const { first_run } = this.state;
         const { fondoBoton1 } = this.state;
 
+        if(this.state.idioma == 'CAST'){
+            label_CargarPantalla = 'Cargar Pantalla';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'Con este boton podras recargar la pantalla';
+            label_AhoraCreaTuPrimerResumen = 'Ahora crea tu primer resumen!';
+        }else if(this.state.idioma == 'CAT'){
+            label_CargarPantalla = 'Cargar Pantalla';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'Amb aquest boto podras carregar la pantalla';
+            label_AhoraCreaTuPrimerResumen = 'Ara crea el teu primer resum!';
+        }else if(this.state.idioma == 'ENG'){
+            label_CargarPantalla = 'Reload Screen';
+            label_ConEsteBotonPodrasRecargarLaPantalla = 'With this button you will be available to reload the screen';
+            label_AhoraCreaTuPrimerResumen = 'Now create your first resume!';
+        }
+
          const itemPressed = async (id_res, nombre, fotico, textaco) => {
             let id_tema = await getItem('idTemaActual');
             //console.log(id_res,"id_res")
@@ -168,13 +189,13 @@ export default class ListaResumenes extends PureComponent {
 						<OCRButton navigation={this.props.navigation}/>
                         <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()}>
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                             </View>
                         </TouchableOpacity>
                         <Modal visible={this.state.mostrarAyudaCargar} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Con este boton podras reacargar la pantalla</Text>
+                                <Text>{label_ConEsteBotonPodrasRecargarLaPantalla}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -185,7 +206,7 @@ export default class ListaResumenes extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaScan} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>Ahora crea tu primer resumen!</Text>
+                                <Text>{label_AhoraCreaTuPrimerResumen}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
@@ -221,7 +242,7 @@ export default class ListaResumenes extends PureComponent {
 						<OCRButton navigation={this.props.navigation}/>
 						<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarResumen()}>
 							<View style={styles.listItemContainer}>
-								<Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+								<Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
 							</View>
 						</TouchableOpacity>
 					</SafeAreaView>

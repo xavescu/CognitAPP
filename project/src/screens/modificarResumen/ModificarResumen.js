@@ -14,6 +14,13 @@ import styles from '../../styles/styles';
 import { query } from '../../CommonFunctions/fetchQuery';
 import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 
+
+let label_EditaResumenExamen = '';
+let label_NombreResumenExamen = '';
+let label_Tema = '';
+let label_EditarResumen = '';
+let label_BorrarResumen = '';
+
 class ModificarResumen extends Component {
     state = {
       userId: 0,
@@ -27,7 +34,8 @@ class ModificarResumen extends Component {
         {id: 1, tipo:'Examen'},
       ],
       newTypeId: 0,
-      temas: []
+      temas: [],
+      idioma:''
     }
 
     async componentDidMount() {
@@ -35,6 +43,8 @@ class ModificarResumen extends Component {
             const id = await getItem("idResumenModificar");
             const userid = await getItem("idUsuario");
             const nombreresumen = await getItem("nombreResumen");
+            const idioma = await getItem('idioma');
+            this.setState({idioma : idioma});
             this.listaTemas();
             this.setState({ resumenId: id, userId: userid, nombreResumen: nombreresumen});
         } catch (err) {
@@ -91,14 +101,38 @@ class ModificarResumen extends Component {
   
     render() {
         const { navigation } = this.props;
-      return (
+
+        if(this.state.idioma == 'CAST'){
+            label_EditaResumenExamen = 'Edita Resumen/Examen';
+            label_NombreResumenExamen = 'Nombre Resumen/Examen';
+            label_Tema = 'Tema';
+            label_EditarResumen = 'Editar Resumen';
+            label_BorrarResumen = 'Borrar Resumen';
+
+        }else if(this.state.idioma == 'CAT'){
+            label_EditaResumenExamen = 'Edita Resum/Examen';
+            label_NombreResumenExamen = 'Nom Resum/Examen';
+            label_Tema = 'Tema';
+            label_EditarResumen = 'Editar Resum';
+            label_BorrarResumen = 'Esborrar Resum';
+
+        }else if(this.state.idioma == 'ENG'){
+            label_EditaResumenExamen = 'Edit Resume/Exam';
+            label_NombreResumenExamen = 'Name Resume/Exam';
+            label_Tema = 'Theme';
+            label_EditarResumen = 'Edit Resume';
+            label_BorrarResumen = 'Delete Resume';
+        }
+
+      
+        return (
         <View style={styles.container}>
           <View style={styles.countContainer}>
             <Text>
-              Editar resumen/examen
+              {label_EditaResumenExamen}
             </Text>
             <Text>
-              Nombre resumen/examen
+              {label_NombreResumenExamen}
             </Text>
             <TextInput
               placeholder={this.state.nombreResumen}
@@ -107,7 +141,7 @@ class ModificarResumen extends Component {
               value={this.state.newNombreResumen}
             ></TextInput>
             <Text>
-              Tema
+              {label_Tema}
             </Text>
             <View>
               <Picker
@@ -134,12 +168,12 @@ class ModificarResumen extends Component {
             <View style={{flexDirection:"row"}}>
               <Button
                 onPress={() => this.editResumen()}
-                title="editar resumen"
+                title={label_EditarResumen}
                 color="#20ff20"
               />
               <Button
                 onPress={() => this.deleteResumen()}
-                title="borrar resumen"
+                title={label_BorrarResumen}
                 color="#ff0000"
               />
             </View>

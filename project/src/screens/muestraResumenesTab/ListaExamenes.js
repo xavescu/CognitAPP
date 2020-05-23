@@ -16,17 +16,22 @@ import { storeItem, getItem } from '../../CommonFunctions/ManageItems';
 import OCRButton from '../ocr/OCRButton';
 import MuestraEditaResumen from '../muestraEditaResumen/muestraEditaResumen';
 
+let label_CargarPantalla = '';
+
 export default class ListaExamenes extends PureComponent {
     state = {
         examenes: [],
-        loading: true
+        loading: true,
+        idioma: ''
     }
 
     async componentDidMount() {
         await storeItem('idPantalla', '4');
+        const idioma_temp = await getItem('idioma');
+        this.setState({idioma: idioma_temp});
         this.llenarExamen();
     }
-	
+
 	async llenarExamen(){
 		try {
             const id = await getItem('idTemaActual');
@@ -42,10 +47,18 @@ export default class ListaExamenes extends PureComponent {
             console.log("Error getting Examens data->", err);
         }
 	}
-	
+
     render() {
         const { examenes, loading } = this.state;
         const { navigation } = this.props;
+
+        if(this.state.idioma == 'CAST'){
+            label_CargarPantalla = 'Cargar Pantalla';
+        }else if(this.state.idioma == 'CAT'){
+            label_CargarPantalla = 'Carregar Pantalla';
+        }else if(this.state.idioma == 'ENG'){
+            label_CargarPantalla = 'Reload Screen';
+        }
 
         const itemPressed = async (id_res, nombre) => {
             let id_tema = await getItem('idTemaActual');
@@ -81,7 +94,7 @@ export default class ListaExamenes extends PureComponent {
                         <OCRButton navigation={this.props.navigation}/>
 						<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarExamen()}>
                             <View style={styles.listItemContainer}>
-                                <Text style={styles.ItemHeader}>Cargar Pantalla</Text>
+                                <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                             </View>
                         </TouchableOpacity>
                 </SafeAreaView>
