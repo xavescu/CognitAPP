@@ -91,12 +91,14 @@ const styles = StyleSheet.create({
         backgroundColor : "#fff"
       },
       botonLogin:{
-        width:300,
-        height:50,
-        backgroundColor:'#FF0033',
-        borderRadius:2,
-        borderWidth: 2,
-        paddingBottom:30
+        width: '100%',
+        height: 45,
+        backgroundColor: '#FF0033',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 105,
+        borderRadius: 25,    
     },
     //separador
     separador:{
@@ -246,12 +248,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
 
-    botonLogin: {
+    /*botonLogin: {
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '700',
-        borderBottomColor: 'black'
-    },
+        borderBottomColor: 'black',
+        width: '100%',
+        borderRadius: 25,
+    },*/
     UserPass: {
         width: 130,
         height: 30,
@@ -279,7 +283,7 @@ const styles = StyleSheet.create({
     ButtonEdit: {
         width: '100%',
         height: 45,
-        backgroundColor: 'green',
+        backgroundColor: '#FF0033',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
@@ -290,7 +294,7 @@ const styles = StyleSheet.create({
     ButtonChange: {
         width: '100%',
         height: 45,
-        backgroundColor: 'green',
+        backgroundColor: '#FF0033',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
@@ -314,20 +318,20 @@ const styles = StyleSheet.create({
          borderRadius: 25,
      },
 
-     ButtonEditDisabled:{
-         width: '100%',
+     ButtonEditDisabled:{ 
          height: 45,
          backgroundColor: 'grey',
          justifyContent: 'center',
          alignItems: 'center',
          position: 'absolute',
          bottom: 55,
+         width: '100%',
          borderRadius: 25,
      },
      ButtonShare: {
         width: '100%',
         height: 45,
-        backgroundColor: 'green',
+        backgroundColor: '#FF0033',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',

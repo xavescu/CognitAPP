@@ -169,7 +169,7 @@ onPickerValueChange=(value, index)=>{
                       />
                   </TouchableOpacity>
                   <TouchableOpacity>
-                      <Picker style={{ height: 50, width: 200 }}
+                      <Picker style={{ height: 60, width: 300 }}
                           selectedValue={this.state.idioma}
                           onValueChange={this.onPickerValueChange}>
                             <Picker.Item label="Castellano" value='CAST' />

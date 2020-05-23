@@ -236,7 +236,9 @@ export default class ListaTemas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showQuintaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -247,7 +249,9 @@ export default class ListaTemas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showSegundaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -258,7 +262,9 @@ export default class ListaTemas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showTerceraPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -269,7 +275,9 @@ export default class ListaTemas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showQuintaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -283,11 +291,15 @@ export default class ListaTemas extends PureComponent {
                                     />
                                     <Button
                                         title="Crear"
+                                        color="#FF0033"
                                         onPress={() => this.createTema()}
+                                        style = {styles.botonRegistro}
                                     />
                                     <Button
                                         title="Cancelar"
+                                        color="#FF0033"
                                         onPress={() => this.cancelar()}
+                                        style = {styles.botonRegistro}
                                     />
                                 </View>
                             </View>
@@ -333,11 +345,15 @@ export default class ListaTemas extends PureComponent {
                                     />
                                     <Button
                                         title="Crear"
+                                        color="#FF0033"
                                         onPress={() => this.createTema()}
+                                        style = {styles.botonRegistro}
                                     />
                                     <Button
                                         title="Cancelar"
+                                        color="#FF0033"
                                         onPress={() => this.cancelar()}
+                                        style = {styles.botonRegistro}
                                     />
                                 </View>
                             </View>

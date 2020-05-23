@@ -91,6 +91,7 @@ export default class ListaResumenes extends PureComponent {
     async getPDF(idResumen, nombreResumen){
         ///var fullPath = '/storage/emulated/0/Android/data/com.loginapp/files/' + nombreResumen +'.pdf';
         var fullPath = '/storage/emulated/0/Download/' + nombreResumen +'.pdf';
+        console.log(idResumen);
         try {
             var form = {
                 id: idResumen,
@@ -199,7 +200,9 @@ export default class ListaResumenes extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showSegundaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -210,7 +213,9 @@ export default class ListaResumenes extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showTerceraPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>

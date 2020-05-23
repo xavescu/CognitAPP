@@ -79,8 +79,8 @@ export default class OCRButton extends Component{
     }
     imageOrText = async () => {
         Alert.alert(
-          {label_ALERTAHAMIGO},
-          {label_RealizarEscaneo},
+        label_ALERTAHAMIGO,
+        label_RealizarEscaneo,
           [
             { text: label_Texto, onPress: this.onPressHandlerText },
             { text: label_Imagen, onPress: this.onPressHandlerImage }
