@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '700',
         borderBottomColor: 'black'
-    }, BodyHeader: {
+    }, 
+    BodyHeader: {
         flex: 0.5,
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
         flex: 0.5,
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: '#4eb3d3',
+        backgroundColor: 'white',
     },
 
     botonLogin: {
