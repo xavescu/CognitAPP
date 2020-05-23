@@ -104,32 +104,32 @@ onPickerValueChange=(value, index)=>{
 
 
     return (
-        <View style = {styles.LoginGeneral}>
+      <View style = {styles.container}>
+          <View style={[styles.box, styles.box1]}>
+            <Text style={styles.HeaderLoginText}>{label_Configuracion}</Text>
+          </View>
+          <View style={[styles.box, styles.box2]}>
+            <View style={styles.separador}/> 
+              <ScrollView> 
+                <View style = {styles.BodyHeader}>
 
-          <ScrollView>
-           <View style = {styles.LoginHeader}>
-              <Text style={styles.TextHeader}>{label_Configuracion}</Text>
-           </View>
-
-            <View style = {styles.BodyHeader}>
-
-                  <TouchableOpacity>
-                      <Text>{label_CambiarNombre}</Text>
-                      <TextInput
-                          placeholder=""
-                          placeholderTextColor="rgba(255,255,255,0.7)"
-                          maxLength={30}
-                          returnKeyType="next"
-                          autoCapitalize="none"
-                          underlineColorAndroid ='transparent'
-                          onChangeText={(nuevonombre)=>this.setState({nuevonombre})}
-                          style = {styles.UserPass}
-                      />
+                      <TouchableOpacity>
+                          <Text style = {styles.Texto2}>{label_CambiarNombre}</Text>
+                          <TextInput
+                              placeholder=""
+                              placeholderTextColor="rgba(255,255,255,0.7)"
+                              maxLength={30}
+                              returnKeyType="next"
+                              autoCapitalize="none"
+                              underlineColorAndroid ='transparent'
+                              onChangeText={(nuevonombre)=>this.setState({nuevonombre})}
+                              style = {styles.InputText2}
+                          />
 
                   </TouchableOpacity>
 
                   <TouchableOpacity>
-                      <Text>{label_CambiarEmail}</Text>
+                      <Text style = {styles.Texto2}>{label_CambiarEmail}</Text>
                       <TextInput
                           placeholder=""
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -138,12 +138,12 @@ onPickerValueChange=(value, index)=>{
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
                           onChangeText={(email)=>this.setState({email})}
-                          style = {styles.UserPass}
+                          style = {styles.InputText2}
                       />
 
                   </TouchableOpacity>
                   <TouchableOpacity>
-                      <Text>{label_CambiarContraseña}</Text>
+                      <Text style = {styles.Texto2}>{label_CambiarContraseña}</Text>
                       <TextInput
                           placeholder=""
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -152,11 +152,11 @@ onPickerValueChange=(value, index)=>{
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
                           onChangeText={(password)=>this.setState({password})}
-                          style = {styles.UserPass}
+                          style = {styles.InputText2}
                       />
                   </TouchableOpacity>
                   <TouchableOpacity>
-                      <Text>{label_CambiarNickName}</Text>
+                      <Text style = {styles.Texto2}>{label_CambiarNickName}</Text>
                       <TextInput
                           placeholder=""
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -165,7 +165,7 @@ onPickerValueChange=(value, index)=>{
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
                           onChangeText={(nickname)=>this.setState({nickname})}
-                          style = {styles.UserPass}
+                          style = {styles.InputText2}
                       />
                   </TouchableOpacity>
                   <TouchableOpacity>
@@ -178,16 +178,20 @@ onPickerValueChange=(value, index)=>{
                       </Picker>
                   </TouchableOpacity>
 
-                    <Button
-                      title = {label_Cambiar}
-                      color="#084081"
-                      style = {styles.botonLogin}
+                    
 
-                      onPress={()=>this.SetRegistro()}
-                   />
-
-            </View>
+              </View>
             </ScrollView>
+            <View style={[styles.box, styles.box3]}>
+              <Button
+                        title = {label_Cambiar}
+                        color="#FF0033"
+                        style = {styles.botonRegistro}
+
+                        onPress={()=>this.SetRegistro()}
+                    />
+            </View>
+            </View>
         </View>
     );
   }

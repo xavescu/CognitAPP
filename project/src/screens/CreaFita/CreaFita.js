@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, Button, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 
 import styles from '../../styles/styles';
@@ -75,10 +75,16 @@ export default class MuestraEditaResumen extends Component {
     }
 
     return (
-      <View style = {styles.LoginGeneral}> 
-        <Text  style = {styles.BodyHeader} >{label_CrearFita}</Text>
+      <View style = {styles.container}>
+          <View style={[styles.box, styles.box1]}>
+            <Text  style = {styles.HeaderLoginText} >{label_CrearFita}</Text>
+          </View>
+        <View style={[styles.box, styles.box2]}>
+          <View style={styles.separador}/>
+          <ScrollView>
+            <View style = {styles.BodyHeader}>
                     <TouchableOpacity>
-                      <Text>{label_Nombre}</Text>
+                      <Text style = {styles.Texto2}>{label_Nombre}</Text>
                       <TextInput 
                           placeholder= "Nombre de hito"
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -87,12 +93,12 @@ export default class MuestraEditaResumen extends Component {
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
                           onChangeText={(NombreFita)=>this.setState({NombreFita})} 
-                          style = {styles.UserPass}
+                          style = {styles.InputText2}
                       />     
                   
                   </TouchableOpacity>
                   <TouchableOpacity>
-                      <Text>{label_Descripcion}</Text>
+                      <Text style = {styles.Texto2}>{label_Descripcion}</Text>
                       <TextInput 
                           placeholder= "Nombre de hito"
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -101,7 +107,7 @@ export default class MuestraEditaResumen extends Component {
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
                           onChangeText={(NombreFita)=>this.setState({NombreFita})} 
-                          style = {styles.UserPass}
+                          style = {styles.InputText2}
                       />     
                   
                   </TouchableOpacity>
@@ -126,12 +132,17 @@ export default class MuestraEditaResumen extends Component {
                     }}
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
+          </View>
+          </ScrollView>
+          <View style={[styles.box, styles.box3]}>
                   <Button 
                       title = {label_Crear}
-                      color="#084081" 
-                      style = {styles.botonLogin}
+                      color="#FF0033" 
+                      style = {styles.botonRegistro}
                       onPress={()=>this.CrearFita()}
                    />
+          </View>
+          </View>
       </View>
     );
   }

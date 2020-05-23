@@ -136,7 +136,7 @@ function SignInScreen({ navigation }) {
 
                     <TouchableOpacity >
                         <Text style = {styles.NombreLogin} >  
-                        Nombre/Email :
+                        Username/Email :
                         </Text>
 
                         <TextInput 

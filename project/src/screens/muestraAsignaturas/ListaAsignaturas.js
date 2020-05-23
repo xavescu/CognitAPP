@@ -244,7 +244,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <Modal visible={this.state.mostrarAyudaCargar} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <Text>{label_ConEsteBotonPodrasReacargarLaPantalla}</Text>
+                                <Text>{label_ConEsteBotonPodrasRecargarLaPantalla}</Text>
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
