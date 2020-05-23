@@ -48,9 +48,9 @@ class MuestraEditaNuevoResumen extends Component {
 
 
     render(){
-        if(idioma == 'CAST' || idioma == 'CAT'){
+        if(this.state.idioma == 'CAST' || this.state.idioma == 'CAT'){
              label_Guardar = 'Guardar';
-        }else if(idioma == 'ENG'){
+        }else if(this.state.idioma == 'ENG'){
              label_Guardar = 'Save';
         }
 

@@ -281,7 +281,9 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showQuintaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -292,7 +294,9 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showSegundaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -303,7 +307,9 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showTerceraPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
@@ -314,25 +320,31 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Text></Text>
                                 <Button 
                                     title="Ok"
+                                    color="#FF0033"
                                     onPress = {()=>this.showQuintaPantalla()}
+                                    style = {styles.botonRegistro}
                                 />
                             </View>
                         </Modal>
                         <Modal visible={this.state.showAsignatura} 
                         transparent = {true}>
                             <View style = {styles.vModal2}>
-                                <View >
+                            <View >
                                     <TextInput
                                     placeholder= 'Nombre Asignatura'
                                     onChangeText={(newAsignatura)=>this.setState({newAsignatura})}
                                     />
                                 <Button
                                     title="Crear"
+                                    color="#FF0033"
                                     onPress = {()=>this.createSubject()}
+                                    style = {styles.botonRegistro}
                                 />
                                 <Button
                                     title="Cancelar"
+                                    color="#FF0033"
                                     onPress = {()=>this.cancelar()}
+                                    style = {styles.botonRegistro}
                                 />
                                 </View>
                             </View>
@@ -375,22 +387,22 @@ export default class ListaAsignaturas extends PureComponent {
                         transparent = {true}>
                             <View style = {styles.vModal2}>
                                 <View >
-                                    <TextInput
-                                    placeholder= 'Nombre Asignatura'
-                                    onChangeText={(newAsignatura)=>this.setState({newAsignatura})}
+                                        <TextInput
+                                        placeholder= 'Nombre Asignatura'
+                                        onChangeText={(newAsignatura)=>this.setState({newAsignatura})}
+                                        />
+                                    <Button
+                                        title="Crear"
+                                        onPress = {()=>this.createSubject()}
+                                        color="#FF0033"
+                                        style = {styles.botonRegistro}
                                     />
-                                <Button
-                                    title="Crear"
-                                    onPress = {()=>this.createSubject()}
-                                    color="#FF0033"
-                                    style = {styles.botonRegistro}
-                                />
-                                <Button
-                                    title="Cancelar"
-                                    onPress = {()=>this.cancelar()}
-                                    color="#FF0033"
-                                    style = {styles.botonRegistro}
-                                />
+                                    <Button
+                                        title="Cancelar"
+                                        onPress = {()=>this.cancelar()}
+                                        color="#FF0033"
+                                        style = {styles.botonRegistro}
+                                    />
                                 </View>
                             </View>
                         </Modal>
