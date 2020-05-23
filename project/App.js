@@ -200,8 +200,10 @@ function SignOut(navigation) {
 
     return (
         <View>
-            <Text style={styles.Cabecera}>Signed in!</Text>
-            <Button title="Sign out" onPress={signOut} />
+            <Text style={styles.Cabecera}>Sign out!</Text>
+            <Button title="Sign out" onPress={signOut} 
+              color="#FF0033"
+              style = {styles.botonLogin} />
         </View>
     );
 }
@@ -318,9 +320,18 @@ export default function App({ navigation }) {
                                 // User is signed in
                                 <>
                                     <Draw.Screen name="Asignatures" component={PantallaPrincipal} />
-                                    <Draw.Screen name ="CreaFita" component={CreaFita} />
-                                    <Draw.Screen name ="ListaFites" component={ListaFites} />
-                                    <Draw.Screen name ="EditaUsuari" component={EditaUsuari} />
+                                    <Draw.Screen name ="CreaFita" component={CreaFita} 
+                                    options={{
+                                        title: 'Crear fita',
+                                    }}/>
+                                    <Draw.Screen name ="ListaFites" component={ListaFites} 
+                                    options={{
+                                        title: 'Lista de Fitas',
+                                    }}/>
+                                    <Draw.Screen name ="EditaUsuari" component={EditaUsuari} 
+                                    options={{
+                                        title: 'Editar Usuario',
+                                    }}/>
                                     <Draw.Screen name ="CodigoArchivo" component={CodigoArchivo} 
                                     options={{
                                             title: 'Codigo amigo',

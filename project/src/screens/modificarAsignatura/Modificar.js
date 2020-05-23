@@ -134,10 +134,15 @@ export default class Modificar extends Component {
     }
 
     return (
-      <View style = {styles.LoginGeneral}> 
-        <Text  style = {styles.BodyHeader} >{label_EditarAsignatura}</Text>
-        <TouchableOpacity>
-                      <Text>{label_NombreAsignatura}</Text>
+      <View style = {styles.container}>
+        <View style={[styles.box, styles.box1]}>
+          <Text  style = {styles.HeaderLoginText} ></Text>
+        </View>
+        <View style={[styles.box, styles.box2]}>
+            <View style={styles.separador}/>
+            <View style = {styles.BodyHeader}>
+              <TouchableOpacity>
+                      <Text style = {styles.Texto2}>{label_NombreAsignatura}</Text>
                       <TextInput 
                           placeholder= {this.state.NombreAsignatura}
                           placeholderTextColor="rgba(255,255,255,0.7)"
@@ -146,25 +151,29 @@ export default class Modificar extends Component {
                           autoCapitalize="none"
                           underlineColorAndroid ='transparent'
                           onChangeText={(NuevoNombre)=>this.setState({NuevoNombre})} 
-                          style = {styles.UserPass}
+                          style = {styles.InputText2}
                       />     
                   
                   </TouchableOpacity>
-
+                </View>
+                
+                </View>
+                <View style={[styles.box, styles.box3]}>
                   <Button 
                       title = {label_Editar} 
-                      color="#084081" 
-                      style = {styles.botonLogin} 
+                      color="#FF0033" 
+                      style = {styles.botonRegistro} 
                      
                       onPress={()=>this.VerificaNombre()}
                    />
 
                   <Button 
                       title = {label_Eliminar} 
-                      color="#084081" 
-                      style = {styles.botonLogin}
+                      color="#FF0033" 
+                      style = {styles.botonRegistro}
                       onPress={()=>this.DeleteAsignatura()}
                    />
+                </View>
       </View>
     );
   }

@@ -222,13 +222,13 @@ export default class ListaResumenes extends PureComponent {
 						<FlatList
 							data={resumenes}
 							renderItem={(data) =>
-								<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre, data.item.foto, data.item.texto) }}>
+								<TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemPressed(data.item.id, data.item.nombre, data.item.foto, data.item.texto) }}>
 									<View style={styles.listItemContainer}>
 										<Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-										<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
+										<TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
 											<Image style={styles.pencil} source={require('../../Images/pencil.png')} />
 										</TouchableOpacity>
-                                        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={()=>this.getPDF(data.item.id, data.item.nombre)}>
+                                        <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={()=>this.getPDF(data.item.id, data.item.nombre)}>
 											<Image style={styles.pencil} source={require('../../Images/pdf.png')} />
 										</TouchableOpacity>
 										{data.item.foto == '0' ? (
@@ -240,7 +240,7 @@ export default class ListaResumenes extends PureComponent {
 							keyExtractor={(item) => item.id} 
 						/>
 						<OCRButton navigation={this.props.navigation}/>
-						<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarResumen()}>
+						<TouchableOpacity style={{ backgroundColor: '#FF0033' }} onPress = {()=>this.llenarResumen()}>
 							<View style={styles.listItemContainer}>
 								<Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
 							</View>

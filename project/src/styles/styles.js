@@ -8,15 +8,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20
+        height: 40,
+        //padding: 20
     },
     ItemHeader: {
         color: '#fff',
         fontSize: 24,
     },
     pencil: {
-        height: 50,
-        width: 50
+        height: 35,
+        width: 35
     },
     container: {
         flex: 1,
@@ -136,12 +137,24 @@ const styles = StyleSheet.create({
 
     }, 
     Cabecera: {
-        color: 'white',
+        color: 'black',
         fontSize: 40,
         textAlign: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         justifyContent: 'center',
         padding: 50,
+    },
+    padtop: {
+        paddingTop: 50,
+    },
+    codigoAmigo: {
+        flex: 1,
+        textAlign: 'center',
+        justifyContent: 'center',
+    },
+    botonAmigo: {
+        height: 30,
+        width: 100,
     },
     botonLogin: {
         textAlign: 'center',
@@ -322,7 +335,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
      background_grey: {
-        backgroundColor: "grey",
+        backgroundColor: "#FF0033",
      },
 
      background_green: {

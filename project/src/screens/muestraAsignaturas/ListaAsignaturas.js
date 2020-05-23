@@ -224,7 +224,7 @@ export default class ListaAsignaturas extends PureComponent {
                         </TouchableOpacity>
                         </View>
                         <View>
-                            <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()}>
+                            <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.llenarAsignatura()}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
@@ -301,10 +301,10 @@ export default class ListaAsignaturas extends PureComponent {
                         <FlatList
                         data={asignaturas}
                         renderItem={(data) =>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
+                            <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer} >
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.nombre, data.item.id) }}>
+                                    <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemModificar(data.item.nombre, data.item.id) }}>
                                         <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
                                     </TouchableOpacity>
                                 </View>
@@ -312,7 +312,7 @@ export default class ListaAsignaturas extends PureComponent {
                         }
                         keyExtractor={(item) => item.id} />
                         <View>
-                        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.showVentana()}>
+                        <TouchableOpacity style={{ backgroundColor: '#FF0033'}} onPress = {()=>this.showVentana()}>
                             <View style={styles.listItemContainer}>
                                 <Text style={styles.ItemHeader}>{label_CrearAsignatura}</Text>
                                 <Image style={styles.pencil} source={require('../../Images/iconPlus.png')}/>
@@ -321,7 +321,7 @@ export default class ListaAsignaturas extends PureComponent {
                         <OCRButton navigation={this.props.navigation}/>
                         </View>
                         <View>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarAsignatura()}>
+                            <TouchableOpacity style={{ backgroundColor: '#FF0033' }} onPress = {()=>this.llenarAsignatura()}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
@@ -338,10 +338,14 @@ export default class ListaAsignaturas extends PureComponent {
                                 <Button
                                     title="Crear"
                                     onPress = {()=>this.createSubject()}
+                                    color="#FF0033"
+                                    style = {styles.botonRegistro}
                                 />
                                 <Button
                                     title="Cancelar"
                                     onPress = {()=>this.cancelar()}
+                                    color="#FF0033"
+                                    style = {styles.botonRegistro}
                                 />
                                 </View>
                             </View>

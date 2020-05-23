@@ -126,58 +126,62 @@ class ModificarResumen extends Component {
 
       
         return (
-        <View style={styles.container}>
-          <View style={styles.countContainer}>
-            <Text>
-              {label_EditaResumenExamen}
-            </Text>
-            <Text>
-              {label_NombreResumenExamen}
-            </Text>
-            <TextInput
-              placeholder={this.state.nombreResumen}
-              returnKeyLabel={"next"}
-              onChangeText={(text) => this.setState({newNombreResumen:text})}
-              value={this.state.newNombreResumen}
-            ></TextInput>
-            <Text>
-              {label_Tema}
-            </Text>
-            <View>
-              <Picker
-                style={{ height: 50, width: 200 }}
-                selectedValue={this.state.newTemaId}
-                onValueChange={this.selectTema}
-                >
-                  {this.state.temas.map(item =>(
-                    <Picker.Item label={item.key} value={item.id}/>
-                  ))}
-              </Picker>
+          <View style = {styles.container}>
+            <View style={[styles.box, styles.box1]}>
+                <Text style={styles.HeaderLoginText}></Text>
             </View>
-            <View>
-              <Picker
-                style={{ height: 50, width: 200 }}
-                selectedValue={this.state.newTypeId}
-                onValueChange={this.selectTipo}
-                >
-                  {this.state.type.map(item =>(
-                    <Picker.Item label={item.tipo} value={item.id}/>
-                  ))}
-              </Picker>
+          <View style={[styles.box, styles.box2]}>
+                <View style={styles.separador}/> 
+                <Text style = {styles.Texto2}>
+                  {label_NombreResumenExamen}
+                </Text>
+                <TextInput
+                  placeholder={this.state.nombreResumen}
+                  returnKeyLabel={"next"}
+                  onChangeText={(text) => this.setState({newNombreResumen:text})}
+                  value={this.state.newNombreResumen}
+                  style = {styles.InputText2}
+                ></TextInput>
+                <Text style = {styles.Texto2}>
+                  {label_Tema}
+                </Text>
+                <View>
+                  <Picker
+                    style={{ height: 50, width: 200 }}
+                    selectedValue={this.state.newTemaId}
+                    onValueChange={this.selectTema}
+                    >
+                      {this.state.temas.map(item =>(
+                        <Picker.Item label={item.key} value={item.id}/>
+                      ))}
+                  </Picker>
+                </View>
+                <View>
+                  <Picker
+                    style={{ height: 50, width: 200 }}
+                    selectedValue={this.state.newTypeId}
+                    onValueChange={this.selectTipo}
+                    >
+                      {this.state.type.map(item =>(
+                        <Picker.Item label={item.tipo} value={item.id}/>
+                      ))}
+                  </Picker>
+                </View>
             </View>
-            <View style={{flexDirection:"row"}}>
+            <View style={[styles.box, styles.box3]}>
               <Button
                 onPress={() => this.editResumen()}
                 title={label_EditarResumen}
-                color="#20ff20"
+                color="#FF0033"
+                style = {styles.botonRegistro}
               />
               <Button
                 onPress={() => this.deleteResumen()}
                 title={label_BorrarResumen}
-                color="#ff0000"
+                color="#FF0033"
+                style = {styles.botonRegistro}
               />
             </View>
-          </View>
         </View>
       )
     }

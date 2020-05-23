@@ -131,45 +131,49 @@ class ModificarTema extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.countContainer}>
-          <Text>
-            {label_Tema}
-          </Text>
-          <Text>
-            {label_Nombre}
-          </Text>
-          <TextInput
-            placeholder={label_Nombre}
-            returnKeyLabel={"next"}
-            onChangeText={(text) => this.setState({newNombre:text})}
-            value={this.state.newNombre}
-          ></TextInput>
-          <Text>
-            {label_Asignatura}
-          </Text>
-          <View>
-            <Picker
-              style={{ height: 50, width: 200 }}
-              selectedValue={this.state.newSubjectId}
-              onValueChange={this.selectAsignatura}
-              >
-                {this.state.asignaturas.map(item =>(
-                  <Picker.Item label={item.key} value={item.id}/>
-                ))}
-            </Picker>
-          </View>
-          <View style={{flexDirection:"row"}}>
-            <Button
-              onPress={() => this.editTema()}
-              title={label_Guardar}
-              color="#20ff20"
-            />
-            <Button
-              onPress={() => this.deleteTema(navigation)}
-              title={label_Borrar}
-              color="#ff0000"
-            />
-          </View>
+        <View style={[styles.box, styles.box1]}>
+            <Text style={styles.HeaderLoginText}></Text>
+        </View>
+        <View style={[styles.box, styles.box2]}>
+                <Text style = {styles.Texto2}>
+                  {label_Nombre}
+                </Text>
+                <TextInput
+                  placeholder={label_Nombre}
+                  returnKeyLabel={"next"}
+                  onChangeText={(text) => this.setState({newNombre:text})}
+                  value={this.state.newNombre}
+                  style = {styles.InputText2}
+                ></TextInput>
+                <Text style = {styles.Texto2}>
+                  {label_Asignatura}
+                </Text>
+                <View>
+                    <Picker
+                      style={{ height: 50, width: 200 }}
+                      selectedValue={this.state.newSubjectId}
+                      onValueChange={this.selectAsignatura}
+                      >
+                        {this.state.asignaturas.map(item =>(
+                          <Picker.Item label={item.key} value={item.id}/>
+                        ))}
+                    </Picker>
+              </View>
+        </View>
+            <View style={[styles.box, styles.box3]}>
+                <Button
+                  onPress={() => this.editTema()}
+                  title={label_Guardar}
+                  color="#FF0033"
+                  style = {styles.botonRegistro}
+                />
+                <Button
+                  onPress={() => this.deleteTema(navigation)}
+                  title={label_Borrar}
+                  color="#FF0033"
+                  style = {styles.botonRegistro}
+                />
+            
         </View>
       </View>
     )

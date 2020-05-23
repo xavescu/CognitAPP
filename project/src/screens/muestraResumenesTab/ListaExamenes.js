@@ -80,10 +80,10 @@ export default class ListaExamenes extends PureComponent {
                     <FlatList
                         data={examenes}
                         renderItem={(data) =>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
+                            <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemPressed(data.item.id, data.item.nombre) }}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                    <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
+                                    <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemModificar(data.item.id, data.item.nombre) }}>
                                         <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
                                     </TouchableOpacity>
                                     <Texttomp3 txt={data.item.nombre} txt2={data.item.id}></Texttomp3> 
@@ -92,7 +92,7 @@ export default class ListaExamenes extends PureComponent {
                         }
                         keyExtractor={(item) => item.id} />
                         <OCRButton navigation={this.props.navigation}/>
-						<TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarExamen()}>
+						<TouchableOpacity style={{ backgroundColor: '#FF0033' }} onPress = {()=>this.llenarExamen()}>
                             <View style={styles.listItemContainer}>
                                 <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                             </View>

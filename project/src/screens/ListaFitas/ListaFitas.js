@@ -73,10 +73,11 @@ export default class ListaFitas extends PureComponent {
         if (!loading) {                                         // Se puede cambiar el texto a una imagen por ejemplo o estilo para ponerlo de diferentes colores
             return (
                 <SafeAreaView style={styles.container}>
+                    <View style={styles.separador}/> 
                     <FlatList
                         data={fitas}
                         renderItem={(data) =>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
+                            <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemPressed(data.item.id) }}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
                                     <Text>{data.item.fecha_limite}</Text>

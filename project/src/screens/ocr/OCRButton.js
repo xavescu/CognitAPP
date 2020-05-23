@@ -69,7 +69,7 @@ export default class OCRButton extends Component{
         const { image } = this.state;
         return(
         //'IniciarCamera'   'MuestraEditaNuevoResumen'
-        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={this.imageOrText}>
+        <TouchableOpacity style={{ backgroundColor: '#FF0033'}} onPress={this.imageOrText}>
             <View style={styles.listItemContainer}>
                 <Text style={styles.ItemHeader}>{label_RealizarEscaneo}</Text>
                 <Image style={styles.pencil} source={require('../../Images/camera.png')} />

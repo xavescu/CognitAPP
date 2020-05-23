@@ -223,7 +223,7 @@ export default class ListaTemas extends PureComponent {
                         </TouchableOpacity>
                         </View>
                         <View>
-                            <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.showAlert()}>
+                            <TouchableOpacity style={fondoBoton1 == true ? (styles.background_green):(styles.background_grey)} onPress = {()=>this.llenarTema()}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>
@@ -299,10 +299,10 @@ export default class ListaTemas extends PureComponent {
                         <FlatList
                             data={temas}
                             renderItem={(data) =>
-                                <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemPressed(data.item.id) }}>
+                                <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemPressed(data.item.id) }}>
                                     <View style={styles.listItemContainer}>
                                         <Text style={styles.ItemHeader}>{data.item.nombre}</Text>
-                                        <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => { itemModificar(data.item.id) }}>
+                                        <TouchableOpacity style={{ backgroundColor: '#85929E' }} onPress={() => { itemModificar(data.item.id) }}>
                                             <Image style={styles.pencil} source={require('../../Images/pencil.png')} />
                                         </TouchableOpacity>
                                     </View>
@@ -310,14 +310,14 @@ export default class ListaTemas extends PureComponent {
                             }
                             keyExtractor={(item) => item.id} />
                         <View>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress={() => this.showVentana()}>
+                            <TouchableOpacity style={{ backgroundColor: '#FF0033' }} onPress={() => this.showVentana()}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{label_CrearTema}</Text>
                                     <Image style={styles.pencil} source={require('../../Images/iconPlus.png')} />
                                 </View>
                             </TouchableOpacity>
                             <OCRButton navigation={this.props.navigation}/>
-                            <TouchableOpacity style={{ backgroundColor: 'grey' }} onPress = {()=>this.llenarTema()}>
+                            <TouchableOpacity style={{ backgroundColor: '#FF0033' }} onPress = {()=>this.llenarTema()}>
                                 <View style={styles.listItemContainer}>
                                     <Text style={styles.ItemHeader}>{label_CargarPantalla}</Text>
                                 </View>

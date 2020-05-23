@@ -35,13 +35,15 @@ export default class codigoArchivo extends Component {
   }
     render() {
       return (
-        <View>
+        <View style={styles.codigoAmigo}>
           <TextInput
           placeholder= 'Codigo amigo'
           onChangeText={(codigoAmigo)=>this.setState({codigoAmigo})}
           />
           <Button
               title="Descargar Archivo"
+              color="#FF0033"
+              style = {styles.botonLogin}
               onPress = {()=>this.descargarArchivo()}
           />
         </View>
