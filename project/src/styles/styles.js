@@ -1,5 +1,5 @@
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
 const styles = StyleSheet.create({
     listItemContainer: {
