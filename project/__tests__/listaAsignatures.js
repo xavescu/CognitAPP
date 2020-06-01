@@ -17,8 +17,9 @@ const getItem = async (id, num) => {
   }
 }
 
-it('renders correctly', async () => {
+it('getAsignaturas', async () => {
   // const list = new listaAsignaturas();
+
   const res1 = await llenarAsignatura(1);
   const ex1 = [
     {
@@ -59,11 +60,67 @@ it('renders correctly', async () => {
     },
   ];
   expect(res1).toEqual(ex1);
-  expect(1+1).toBe(2);
-  expect(true).toBeTruthy();
+  
+  const res2 = await llenarAsignatura(3);
+  const ex2 = [
+    {
+    "id": "6",
+    "nombre": "Metodologia de la programació",
+    },
+  ];
+  expect(res2).toEqual(ex2);
+
+  const res3 = await llenarAsignatura(14859);
+  const ex3 = [];
+  expect(res3).toEqual(ex3);
+
+  const res4 = await llenarAsignatura('dfjihfnjgkdnjk');
+  const ex4 = [];
+  expect(res4).toEqual(ex4);
+
+  const res5 = await llenarAsignatura(7);
+  const ex5 = [
+    {
+    "id": "22",
+    "nombre": "esa",
+    },
+    {
+    "id": "23",
+    "nombre": "asignatura",
+    },
+    {
+    "id": "24",
+    "nombre": "wena",
+    },
+  ];
+  expect(res5).toEqual(ex5);
+
 });
 
-const llenarAsignatura = async (num) =>{
+it('creaSubject', async () => {
+  const res1 = await createSubject(3,"prueba111");
+  const ex1 = {"status": true};
+  expect(res1).toEqual(ex1);
+  
+  const res2 = await createSubject(1,"prueba111");
+  const ex2 = {"status": true};
+  expect(res2).toEqual(ex2);
+
+  const res3 = await createSubject(-1,32);
+  const ex3 = undefined;
+  expect(res3).toEqual(ex3);
+
+  const res4 = await createSubject(-1,"prueba111");
+  const ex4 = undefined;
+  expect(res4).toEqual(ex4);
+
+  const res5 = await createSubject("hola","prueba111");
+  const ex5 = undefined;
+  expect(res5).toEqual(ex5);
+
+});
+
+const llenarAsignatura = async (num) => {
   try {
       const id = await getItem('idUsuario',num);
       const res = await query('querySubjects', { "id": id });
@@ -76,5 +133,15 @@ const llenarAsignatura = async (num) =>{
       return aux;
   } catch (err) {
       console.log("Error getting Asignaturas data->", err);
+  }
+}
+
+const createSubject = async (asignatura, idUser)  => {
+  try {
+      const id = await getItem('idUsuario', idUser);
+      const res = await query('storeSubject', { "nombre":asignatura, "id": id });
+      return res;
+  } catch (err) {
+      console.log("Error creating Asignaturas data->", err);
   }
 }
